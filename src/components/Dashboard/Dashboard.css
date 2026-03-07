@@ -1,6 +1,4 @@
 .dashboard {
-  /* padding: 28px;
-  max-width: 1400px; */
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
@@ -66,11 +64,6 @@
   align-items: center;
 }
 
-/* .ring-wrapper {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 16px;
-} */
 
 .ring-wrapper {
   display: flex;

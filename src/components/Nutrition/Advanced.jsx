@@ -35,17 +35,6 @@ function MicroCard({ id, data, current = 0 }) {
 export default function Advanced({ appState }) {
   const { meals } = appState;
 
-  
-  // const allMeals = [...meals.breakfast, ...meals.lunch, ...meals.dinner, ...meals.snacks];
-  // const fiberTotal = Math.round(allMeals.reduce((s, i) => s + ((i.fiber || 0) * i.grams / 100), 0));
-
-  
-  // const mockCurrent = {
-  //   vitaminC: 42, vitaminD: 180, vitaminB12: 1.8, iron: 9,
-  //   calcium: 480, magnesium: 180, zinc: 7, potassium: 1800,
-  //   sodium: 1100, omega3: 800, fiber: fiberTotal,
-  // };
-
   const allMeals = [...meals.breakfast, ...meals.lunch, ...meals.dinner, ...meals.snacks];
 
   const mockCurrent = allMeals.reduce((acc, item) => {
@@ -107,9 +96,7 @@ export default function Advanced({ appState }) {
       <div className="animate-fade-up-3">
         <div className="section-header">
           <h3 className="section-title">Micronutrientes de hoy</h3>
-          {/* <span className="badge badge-orange">
-            <i className="bi bi-info-circle"></i> Valores estimados
-          </span> */}
+          
           <span className="badge badge-green">
             <i className="bi bi-check-circle"></i> Tiempo real
           </span>

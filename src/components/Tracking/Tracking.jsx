@@ -168,7 +168,7 @@ export default function Tracking({ appState }) {
           </div>
         </div>
 
-        {/* Body measurements */}
+        {/* Body measurements  */}
         <div className="tracking-side animate-fade-up-3">
           <div className="card measures-card">
             <p className="card-label"><i className="bi bi-rulers"></i> Medidas corporales</p>
