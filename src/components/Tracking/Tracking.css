@@ -1,0 +1,166 @@
+.tracking-page { 
+  padding: 28px; 
+  max-width: 1400px; 
+  width: 100%;
+}
+
+.tracking-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.track-stat {
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.track-stat-val {
+  font-size: 22px;
+  font-weight: 800;
+  font-family: var(--font-display);
+  display: block;
+  line-height: 1;
+  margin-bottom: 2px;
+}
+
+.track-stat-lbl {
+  font-size: 11px;
+  color: var(--text-muted);
+  display: block;
+}
+
+.tracking-grid {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 20px;
+  align-items: start;
+}
+
+.tracking-main { display: flex; flex-direction: column; gap: 16px; }
+.tracking-side { display: flex; flex-direction: column; gap: 16px; position: sticky; top: 20px; }
+
+.chart-card { padding: 20px; }
+.chart-empty {
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  font-size: 13px;
+  gap: 8px;
+}
+
+.custom-tooltip {
+  background: rgba(10, 14, 23, 0.95);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 12px;
+  font-family: var(--font-body);
+}
+.tooltip-label { color: var(--text-muted); margin-bottom: 4px; font-size: 11px; }
+
+.weight-logger { padding: 20px; }
+
+.weight-input-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.weight-unit {
+  font-size: 14px;
+  color: var(--text-muted);
+  font-family: var(--font-display);
+  font-weight: 600;
+}
+
+.weight-history-list { display: flex; flex-direction: column; gap: 6px; }
+
+.weight-history-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.03);
+  font-size: 13px;
+}
+
+.wh-date { color: var(--text-muted); font-size: 12px; }
+.wh-val { color: var(--accent-green); font-weight: 700; font-family: var(--font-display); }
+
+/* Measures */
+.measures-card { padding: 20px; }
+.measures-grid { display: flex; flex-direction: column; gap: 14px; }
+
+.measure-field { display: flex; flex-direction: column; gap: 5px; }
+.measure-field label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); margin: 0; }
+
+.measure-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.measure-unit {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* Water goal */
+.water-goal-card { padding: 20px; }
+
+.water-goal-display {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.water-goal-num {
+  font-size: 40px;
+  font-weight: 800;
+  font-family: var(--font-display);
+  color: var(--accent-blue);
+  line-height: 1;
+}
+
+.water-goal-unit {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.water-goal-slider { margin-bottom: 8px; }
+
+.water-slider-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: var(--text-muted);
+  padding: 0 2px;
+}
+
+.water-goal-ml {
+  font-size: 12px;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+@media (max-width: 1000px) {
+  .tracking-grid { grid-template-columns: 1fr; }
+  .tracking-side { position: static; }
+}
+
+@media (max-width: 768px) {
+  .tracking-page { padding: 16px; }
+}
