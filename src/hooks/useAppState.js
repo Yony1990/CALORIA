@@ -31,9 +31,19 @@ const defaultMeals = {
 };
 
 export function useAppState() {
+  // const [profile, setProfile] = useState(() => {
+  //   const saved = localStorage.getItem('caloria_profile');
+  //   return saved ? JSON.parse(saved) : defaultProfile;
+  // });
   const [profile, setProfile] = useState(() => {
     const saved = localStorage.getItem('caloria_profile');
-    return saved ? JSON.parse(saved) : defaultProfile;
+    if (saved) return JSON.parse(saved);
+    
+    // Primera vez — guardar peso inicial
+    if (!localStorage.getItem('caloria_peso_inicial')) {
+      localStorage.setItem('caloria_peso_inicial', String(defaultProfile.weight));
+    }
+    return defaultProfile;
   });
 
   const [tracking, setTracking] = useState(() => {
@@ -56,10 +66,20 @@ export function useAppState() {
     return saved ? JSON.parse(saved) : [];
   });
 
+  // const saveProfile = useCallback((data) => {
+  //   const updated = { ...profile, ...data };
+  //   setProfile(updated);
+  //   localStorage.setItem('caloria_profile', JSON.stringify(updated));
+  // }, [profile]);
   const saveProfile = useCallback((data) => {
     const updated = { ...profile, ...data };
     setProfile(updated);
     localStorage.setItem('caloria_profile', JSON.stringify(updated));
+
+    // Guardar peso inicial solo si no existe todavía
+    if (!localStorage.getItem('caloria_peso_inicial') && data.weight) {
+      localStorage.setItem('caloria_peso_inicial', String(data.weight));
+    }
   }, [profile]);
 
   const saveTracking = useCallback((data) => {
@@ -68,14 +88,6 @@ export function useAppState() {
     localStorage.setItem('caloria_tracking', JSON.stringify(updated));
   }, [tracking]);
 
-  // const addMealItem = useCallback((mealType, item) => {
-  //   const updated = {
-  //     ...meals,
-  //     [mealType]: [...meals[mealType], { ...item, id: Date.now() + Math.random(), timestamp: new Date().toISOString() }]
-  //   };
-  //   setMeals(updated);
-  //   localStorage.setItem('caloria_meals', JSON.stringify(updated));
-  // }, [meals]);
   const addMealItem = useCallback((mealType, item) => {
     setMeals(prev => {
       const updated = {
@@ -91,26 +103,6 @@ export function useAppState() {
     });
   }, []); // ← dependencias vacías, usa prev siempre
 
-  // const removeMealItem = useCallback((mealType, itemId) => {
-  //   const updated = {
-  //     ...meals,
-  //     [mealType]: meals[mealType].filter(i => i.id !== itemId)
-  //   };
-  //   setMeals(updated);
-  //   localStorage.setItem('caloria_meals', JSON.stringify(updated));
-  // }, [meals]);
-
-  // const addExercise = useCallback((exercise) => {
-  //   const updated = [...exercises, { ...exercise, id: Date.now() + Math.random(), timestamp: new Date().toISOString() }];
-  //   setExercises(updated);
-  //   localStorage.setItem('caloria_exercises', JSON.stringify(updated));
-  // }, [exercises]);
-
-  // const removeExercise = useCallback((id) => {
-  //   const updated = exercises.filter(e => e.id !== id);
-  //   setExercises(updated);
-  //   localStorage.setItem('caloria_exercises', JSON.stringify(updated));
-  // }, [exercises]);
 
   const removeMealItem = useCallback((mealType, itemId) => {
     setMeals(prev => {
