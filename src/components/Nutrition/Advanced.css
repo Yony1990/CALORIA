@@ -165,3 +165,241 @@
   .advanced-page { padding: 16px; }
   .micro-grid { grid-template-columns: 1fr; }
 }
+
+
+
+/* ── Diet btn ver recetas ───────────────────────── */
+.diet-btn-ver {
+  font-size: 10px;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  margin-top: 2px;
+  transition: color 0.2s;
+}
+
+.diet-btn:hover .diet-btn-ver,
+.diet-btn.active .diet-btn-ver { color: var(--accent-green); }
+
+/* ── Modal dieta ────────────────────────────────── */
+.diet-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(4px);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.diet-modal {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  width: 100%;
+  max-width: 560px;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  animation: modalIn 0.2s ease;
+  overflow: hidden;
+}
+
+@keyframes modalIn {
+  from { opacity:0; transform:scale(0.95); }
+  to   { opacity:1; transform:scale(1);    }
+}
+
+.diet-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 20px 16px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.diet-modal-title-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.diet-modal-icon { font-size: 32px; }
+
+.diet-modal-title {
+  font-size: 18px;
+  font-weight: 800;
+  font-family: var(--font-display);
+  margin: 0;
+}
+
+.diet-modal-sub {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin: 2px 0 0;
+}
+
+.diet-modal-close {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 16px;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 8px;
+  transition: color 0.2s;
+}
+
+.diet-modal-close:hover { color: var(--text-primary); }
+
+/* .diet-modal-list {
+  overflow-y: auto;
+  flex: 1;
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+} */
+
+.diet-modal-list {
+  overflow-y: auto;
+  flex: 1;
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow-x: hidden; /* ← agregá esto */
+}
+
+.diet-modal-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 40px;
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.diet-modal-empty i { font-size: 32px; }
+
+/* Receta row */
+/* .diet-modal-receta {
+  background: var(--bg-hover);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  transition: border-color 0.2s;
+} */
+.diet-modal-receta {
+  background: var(--bg-hover);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: visible; /* ← antes: hidden */
+  transition: border-color 0.2s;
+  flex-shrink: 0;    /* ← agregá esto */
+}
+
+.diet-modal-receta:hover { border-color: var(--accent-green); }
+
+.diet-modal-receta-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  cursor: pointer;
+}
+
+.diet-modal-receta-icon { font-size: 24px; flex-shrink: 0; }
+
+.diet-modal-receta-datos { flex: 1; min-width: 0; }
+
+.diet-modal-receta-nombre {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-primary);
+  display: block;
+  margin-bottom: 4px;
+}
+
+.diet-modal-receta-macros {
+  display: flex;
+  gap: 10px;
+  font-size: 11px;
+  color: var(--text-muted);
+  flex-wrap: wrap;
+}
+
+.diet-modal-receta-badges {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.receta-tipo-badge {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 20px;
+  text-transform: capitalize;
+}
+
+/* Detalle expandible */
+.diet-modal-receta-detalle {
+  padding: 0 12px 12px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity:0; transform:translateY(-4px); }
+  to   { opacity:1; transform:translateY(0);    }
+}
+
+.diet-modal-receta-desc {
+  font-size: 12px;
+  color: var(--text-muted);
+  padding-top: 10px;
+}
+
+.diet-modal-ingredientes {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.diet-modal-ing-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--text-secondary);
+  padding: 5px 8px;
+  background: rgba(255,255,255,0.03);
+  border-radius: 6px;
+}
+
+.diet-modal-agregar {
+  width: 100%;
+  padding: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  border-radius: var(--radius-sm);
+  transition: all 0.3s;
+}
+
+.diet-modal-agregar.agregado {
+  background: var(--accent-green);
+  color: #0a0e17;
+}
+
+@media (max-width: 768px) {
+  .diet-modal { max-height: 90vh; }
+}
