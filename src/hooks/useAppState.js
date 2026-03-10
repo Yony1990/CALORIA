@@ -68,35 +68,76 @@ export function useAppState() {
     localStorage.setItem('caloria_tracking', JSON.stringify(updated));
   }, [tracking]);
 
+  // const addMealItem = useCallback((mealType, item) => {
+  //   const updated = {
+  //     ...meals,
+  //     [mealType]: [...meals[mealType], { ...item, id: Date.now() + Math.random(), timestamp: new Date().toISOString() }]
+  //   };
+  //   setMeals(updated);
+  //   localStorage.setItem('caloria_meals', JSON.stringify(updated));
+  // }, [meals]);
   const addMealItem = useCallback((mealType, item) => {
-    const updated = {
-      ...meals,
-      [mealType]: [...meals[mealType], { ...item, id: Date.now(), timestamp: new Date().toISOString() }]
-    };
-    setMeals(updated);
-    localStorage.setItem('caloria_meals', JSON.stringify(updated));
-  }, [meals]);
+    setMeals(prev => {
+      const updated = {
+        ...prev,
+        [mealType]: [...prev[mealType], { 
+          ...item, 
+          id: Date.now() + Math.random(),
+          timestamp: new Date().toISOString() 
+        }]
+      };
+      localStorage.setItem('caloria_meals', JSON.stringify(updated));
+      return updated;
+    });
+  }, []); // ← dependencias vacías, usa prev siempre
+
+  // const removeMealItem = useCallback((mealType, itemId) => {
+  //   const updated = {
+  //     ...meals,
+  //     [mealType]: meals[mealType].filter(i => i.id !== itemId)
+  //   };
+  //   setMeals(updated);
+  //   localStorage.setItem('caloria_meals', JSON.stringify(updated));
+  // }, [meals]);
+
+  // const addExercise = useCallback((exercise) => {
+  //   const updated = [...exercises, { ...exercise, id: Date.now() + Math.random(), timestamp: new Date().toISOString() }];
+  //   setExercises(updated);
+  //   localStorage.setItem('caloria_exercises', JSON.stringify(updated));
+  // }, [exercises]);
+
+  // const removeExercise = useCallback((id) => {
+  //   const updated = exercises.filter(e => e.id !== id);
+  //   setExercises(updated);
+  //   localStorage.setItem('caloria_exercises', JSON.stringify(updated));
+  // }, [exercises]);
 
   const removeMealItem = useCallback((mealType, itemId) => {
-    const updated = {
-      ...meals,
-      [mealType]: meals[mealType].filter(i => i.id !== itemId)
-    };
-    setMeals(updated);
-    localStorage.setItem('caloria_meals', JSON.stringify(updated));
-  }, [meals]);
+    setMeals(prev => {
+      const updated = {
+        ...prev,
+        [mealType]: prev[mealType].filter(i => i.id !== itemId)
+      };
+      localStorage.setItem('caloria_meals', JSON.stringify(updated));
+      return updated;
+    });
+  }, []);
 
   const addExercise = useCallback((exercise) => {
-    const updated = [...exercises, { ...exercise, id: Date.now(), timestamp: new Date().toISOString() }];
-    setExercises(updated);
-    localStorage.setItem('caloria_exercises', JSON.stringify(updated));
-  }, [exercises]);
+    setExercises(prev => {
+      const updated = [...prev, { ...exercise, id: Date.now() + Math.random(), timestamp: new Date().toISOString() }];
+      localStorage.setItem('caloria_exercises', JSON.stringify(updated));
+      return updated;
+    });
+  }, []);
 
   const removeExercise = useCallback((id) => {
-    const updated = exercises.filter(e => e.id !== id);
-    setExercises(updated);
-    localStorage.setItem('caloria_exercises', JSON.stringify(updated));
-  }, [exercises]);
+    setExercises(prev => {
+      const updated = prev.filter(e => e.id !== id);
+      localStorage.setItem('caloria_exercises', JSON.stringify(updated));
+      return updated;
+    });
+  }, []);
 
   const logWeight = useCallback((weight) => {
     const entry = { weight, date: new Date().toISOString() };

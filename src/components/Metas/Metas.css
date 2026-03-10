@@ -1,0 +1,192 @@
+.metas-page {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Meta de peso */
+.meta-peso-card { padding: 20px; }
+
+.meta-peso-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin: 14px 0;
+}
+
+.meta-peso-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 14px;
+  background: var(--bg-hover);
+  border-radius: var(--radius-sm);
+}
+
+.meta-peso-val   { font-size: 22px; font-weight: 800; font-family: var(--font-display); }
+.meta-peso-label { font-size: 11px; color: var(--text-muted); }
+
+.meta-peso-input {
+  margin: 16px 0;
+}
+
+.meta-peso-input label {
+  font-size: 11px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.meta-peso-input-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.meta-peso-input-row button {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: var(--bg-hover);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  font-size: 16px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s;
+}
+
+.meta-peso-input-row button:hover {
+  border-color: var(--accent-green);
+  color: var(--accent-green);
+}
+
+.meta-peso-input-row input {
+  width: 90px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 800;
+  font-family: var(--font-display);
+}
+
+/* Barra de progreso */
+.meta-progreso-wrap { margin: 16px 0; }
+
+.meta-progreso-track {
+  position: relative;
+  height: 10px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 5px;
+  overflow: visible;
+  margin-bottom: 8px;
+}
+
+.meta-progreso-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-blue), var(--accent-green));
+  border-radius: 5px;
+  transition: width 0.5s ease;
+  box-shadow: 0 0 10px rgba(0,229,160,0.4);
+}
+
+.meta-progreso-thumb {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: var(--accent-green);
+  box-shadow: 0 0 10px var(--accent-green);
+  transition: left 0.5s ease;
+}
+
+.meta-progreso-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+/* Proyección */
+.meta-proyeccion {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+.meta-proy-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  background: var(--bg-hover);
+  border-radius: var(--radius-sm);
+}
+
+.meta-proy-item i { font-size: 20px; flex-shrink: 0; }
+
+.meta-proy-label { display: block; font-size: 10px; color: var(--text-muted); }
+.meta-proy-val   { display: block; font-size: 14px; font-weight: 700; font-family: var(--font-display); }
+
+/* Logros */
+.logros-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.logro-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  transition: all 0.2s;
+}
+
+.logro-unlocked {
+  background: rgba(0,229,160,0.05);
+  border-color: rgba(0,229,160,0.2);
+}
+
+.logro-locked {
+  background: var(--bg-card);
+  opacity: 0.5;
+}
+
+.logro-icon { font-size: 28px; flex-shrink: 0; }
+
+.logro-icon-locked {
+  filter: grayscale(1);
+  opacity: 0.4;
+}
+
+.logro-info { flex: 1; min-width: 0; }
+.logro-titulo { display: block; font-size: 13px; font-weight: 700; color: var(--text-primary); }
+.logro-desc   { display: block; font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+.logro-check { color: var(--accent-green); font-size: 18px; flex-shrink: 0; }
+.logro-lock  { color: var(--text-muted);   font-size: 16px; flex-shrink: 0; }
+
+@media (max-width: 768px) {
+  .metas-page        { padding: 12px; }
+  .meta-peso-grid    { grid-template-columns: repeat(3, 1fr); }
+  .meta-proyeccion   { grid-template-columns: repeat(2, 1fr); }
+  .logros-grid       { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 480px) {
+  .meta-proyeccion   { grid-template-columns: 1fr; }
+  .logros-grid       { grid-template-columns: 1fr; }
+  .meta-peso-grid    { grid-template-columns: repeat(3, 1fr); }
+}

@@ -1,13 +1,17 @@
 import { useRef } from 'react';
 import './Sidebar.css';
+import logo from '../../assets/img/logo.png'
+
 
 const navItems = [
-  { id: 'dashboard',  icon: 'bi-grid-1x2',      label: 'Dashboard'  },
-  { id: 'nutrition',  icon: 'bi-journal-text',   label: 'Nutrición'  },
-  // { id: 'advanced',   icon: 'bi-capsule',        label: 'Micros'     },
-  { id: 'calistenia', icon: 'bi-person-arms-up', label: 'Calistenia' },
-  { id: 'tracking',   icon: 'bi-graph-up-arrow', label: 'Progreso'   },
-  // { id: 'profile',    icon: 'bi-person-circle',  label: 'Perfil'     },
+  { id: 'dashboard',  icon: 'bi-grid-1x2',         label: 'Dashboard'  },
+  { id: 'nutrition',  icon: 'bi-journal-text',     label: 'Nutrición'  },
+  { id: 'calistenia', icon: 'bi-person-arms-up',   label: 'Calistenia' },
+  { id: 'bienestar',  icon: 'bi-heart-pulse',      label: 'Bienestar'  },
+  { id: 'metas',      icon: 'bi-trophy',           label: 'Metas'      },
+  { id: 'tracking',   icon: 'bi-graph-up-arrow',   label: 'Progreso'   },
+  { id: 'recetas',    icon: 'bi-book',             label: 'Recetas' },
+  { id: 'calculadora', icon: 'bi-calculator', label: 'Calculadora' },
 ];
 
 const slogans = {
@@ -37,7 +41,19 @@ export default function Sidebar({ activePage, setActivePage, profile, onAvatarCh
     <aside className="sidebar">
       <div className="sidebar-logo">
         <div className="logo-icon">
-          <i className="bi bi-lightning-charge-fill"></i>
+          {/* <i className="bi bi-lightning-charge-fill"></i> */}
+          <img src={logo} alt="img logo" />
+        </div>
+      </div>
+
+      {/* Avatar card */}
+      <div className="sidebar-profile" onClick={() => setActivePage('profile')}>
+        <div className="sp-avatar-wrap">
+          <img src={avatarSrc} alt="avatar" className="sp-avatar" />
+        </div>
+        <div className="sp-info">
+          <p className="sp-name">{profile.name || 'Atleta'}</p>
+          <p className="sp-slogan">{slogans[profile.goal] || '💪 Cada día más cerca'}</p>
         </div>
       </div>
 
@@ -55,16 +71,7 @@ export default function Sidebar({ activePage, setActivePage, profile, onAvatarCh
         ))}
       </nav>
 
-      {/* Avatar card */}
-      <div className="sidebar-profile" onClick={() => setActivePage('profile')}>
-        <div className="sp-avatar-wrap">
-          <img src={avatarSrc} alt="avatar" className="sp-avatar" />
-        </div>
-        <div className="sp-info">
-          <p className="sp-name">{profile.name || 'Atleta'}</p>
-          <p className="sp-slogan">{slogans[profile.goal] || '💪 Cada día más cerca'}</p>
-        </div>
-      </div>
+      
     </aside>
   );
 }
