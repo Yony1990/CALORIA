@@ -70,24 +70,42 @@ export default function Metas({ appState }) {
   };
 
   // ── Pesos — siempre parseFloat para evitar bugs de string ──
-  const pesoActual = parseFloat(profile.weight) || 0;
+  // const pesoActual = parseFloat(profile.weight) || 0;
 
-  // Guardar peso inicial la primera vez
-  if (!localStorage.getItem('caloria_peso_inicial') && pesoActual > 0) {
-    localStorage.setItem('caloria_peso_inicial', String(pesoActual));
-  }
+  // if (!localStorage.getItem('caloria_peso_inicial') && pesoActual > 0) {
+  //   localStorage.setItem('caloria_peso_inicial', String(pesoActual));
+  // }
 
+  // const pesoInicial =
+  //   weightHistory.length > 0
+  //     ? parseFloat(weightHistory[0].weight)
+  //     : parseFloat(localStorage.getItem('caloria_peso_inicial')) || pesoActual;
+
+  // const pesoObj     = parseFloat(pesoObjetivo) || pesoActual;
+  // const totalCambio = Math.abs(pesoInicial - pesoObj);
+  // const cambioHecho = Math.abs(pesoActual  - pesoInicial);
+  // const pctPeso     = totalCambio > 0 ? Math.min((cambioHecho / totalCambio) * 100, 100) : 0;
+  // const kgRestantes = Math.abs(pesoActual - pesoObj);
+  // const kgProgreso  = Math.abs(pesoInicial - pesoActual);
+
+  const pesoActual  = parseFloat(profile.weight) || 0;
   const pesoInicial =
     weightHistory.length > 0
       ? parseFloat(weightHistory[0].weight)
       : parseFloat(localStorage.getItem('caloria_peso_inicial')) || pesoActual;
 
-  const pesoObj     = parseFloat(pesoObjetivo) || pesoActual;
+  const pesoObj = parseFloat(pesoObjetivo) || pesoActual;
+
+  // Dirección correcta según goal
+  const bajando     = pesoObj < pesoInicial;  // true = quiere bajar, false = quiere subir
   const totalCambio = Math.abs(pesoInicial - pesoObj);
-  const cambioHecho = Math.abs(pesoActual  - pesoInicial);
+  const cambioHecho = bajando
+    ? Math.max(0, pesoInicial - pesoActual)   // cuánto bajó
+    : Math.max(0, pesoActual  - pesoInicial); // cuánto subió
+
   const pctPeso     = totalCambio > 0 ? Math.min((cambioHecho / totalCambio) * 100, 100) : 0;
-  const kgRestantes = Math.abs(pesoActual - pesoObj);
-  const kgProgreso  = Math.abs(pesoInicial - pesoActual);
+  const kgRestantes = Math.max(0, Math.abs(pesoActual - pesoObj));
+  const kgProgreso  = cambioHecho;
 
   // ── Proyección ─────────────────────────────────────────
   const target  = calculateTargetCalories();
