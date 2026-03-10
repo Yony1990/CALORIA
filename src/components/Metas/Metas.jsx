@@ -58,43 +58,43 @@ export default function Metas({ appState }) {
 
   const [pesoObjetivo, setPesoObjetivo] = useState(() => {
     const saved = localStorage.getItem('caloria_peso_objetivo');
-    return saved ? parseFloat(saved) : profile.goal === 'lose' ? profile.weight - 10 : profile.weight + 5;
+    if (saved) return parseFloat(saved);
+    return profile.goal === 'lose'
+      ? parseFloat(profile.weight) - 10
+      : parseFloat(profile.weight) + 5;
   });
 
   const savePesoObjetivo = (val) => {
     setPesoObjetivo(val);
-    localStorage.setItem('caloria_peso_objetivo', val);
+    localStorage.setItem('caloria_peso_objetivo', String(val));
   };
 
-  // ── Peso inicial con fallback robusto ──────────────────
-  const pesoActual = profile.weight;
+  // ── Pesos — siempre parseFloat para evitar bugs de string ──
+  const pesoActual = parseFloat(profile.weight) || 0;
 
-  // Guardar peso inicial la primera vez que se abre la app
-  if (!localStorage.getItem('caloria_peso_inicial') && profile.weight) {
-    localStorage.setItem('caloria_peso_inicial', String(profile.weight));
+  // Guardar peso inicial la primera vez
+  if (!localStorage.getItem('caloria_peso_inicial') && pesoActual > 0) {
+    localStorage.setItem('caloria_peso_inicial', String(pesoActual));
   }
 
-  const pesoInicialGuardado = parseFloat(localStorage.getItem('caloria_peso_inicial') || '0');
   const pesoInicial =
     weightHistory.length > 0
-      ? weightHistory[0].weight
-      : pesoInicialGuardado > 0
-      ? pesoInicialGuardado
-      : pesoActual;
+      ? parseFloat(weightHistory[0].weight)
+      : parseFloat(localStorage.getItem('caloria_peso_inicial')) || pesoActual;
 
-  // ── Progreso ───────────────────────────────────────────
-  const totalCambio = Math.abs(pesoInicial - pesoObjetivo);
+  const pesoObj     = parseFloat(pesoObjetivo) || pesoActual;
+  const totalCambio = Math.abs(pesoInicial - pesoObj);
   const cambioHecho = Math.abs(pesoActual  - pesoInicial);
   const pctPeso     = totalCambio > 0 ? Math.min((cambioHecho / totalCambio) * 100, 100) : 0;
-  const kgRestantes = Math.abs(pesoActual - pesoObjetivo);
+  const kgRestantes = Math.abs(pesoActual - pesoObj);
   const kgProgreso  = Math.abs(pesoInicial - pesoActual);
 
   // ── Proyección ─────────────────────────────────────────
-  const target    = calculateTargetCalories();
-  const tdee      = Math.round(
+  const target  = calculateTargetCalories();
+  const tdee    = Math.round(
     profile.activityLevel *
-      (10 * profile.weight + 6.25 * profile.height - 5 * profile.age +
-        (profile.sex === 'male' ? 5 : -161))
+      (10 * pesoActual + 6.25 * parseFloat(profile.height) -
+        5 * parseFloat(profile.age) + (profile.sex === 'male' ? 5 : -161))
   );
   const difDiario     = Math.abs(tdee - target);
   const diasEstimados = difDiario > 0 ? Math.round((kgRestantes * 7700) / difDiario) : null;
@@ -174,7 +174,7 @@ export default function Metas({ appState }) {
             <span className="meta-peso-label">Peso actual</span>
           </div>
           <div className="meta-peso-stat">
-            <span className="meta-peso-val" style={{ color: 'var(--accent-orange)' }}>{pesoObjetivo} kg</span>
+            <span className="meta-peso-val" style={{ color: 'var(--accent-orange)' }}>{pesoObj} kg</span>
             <span className="meta-peso-label">Peso objetivo</span>
           </div>
         </div>
@@ -183,16 +183,16 @@ export default function Metas({ appState }) {
         <div className="meta-peso-input">
           <label>Ajustar peso objetivo (kg)</label>
           <div className="meta-peso-input-row">
-            <button onClick={() => savePesoObjetivo(Math.max(30, pesoObjetivo - 0.5))}>
+            <button onClick={() => savePesoObjetivo(Math.max(30, pesoObj - 0.5))}>
               <i className="bi bi-dash"></i>
             </button>
             <input
               type="number"
-              value={pesoObjetivo}
+              value={pesoObj}
               min="30" max="300" step="0.5"
-              onChange={(e) => savePesoObjetivo(parseFloat(e.target.value) || pesoObjetivo)}
+              onChange={(e) => savePesoObjetivo(parseFloat(e.target.value) || pesoObj)}
             />
-            <button onClick={() => savePesoObjetivo(Math.min(300, pesoObjetivo + 0.5))}>
+            <button onClick={() => savePesoObjetivo(Math.min(300, pesoObj + 0.5))}>
               <i className="bi bi-plus"></i>
             </button>
           </div>
@@ -209,7 +209,7 @@ export default function Metas({ appState }) {
             <span style={{ color: 'var(--accent-green)', fontWeight: 700 }}>
               {Math.round(pctPeso)}% completado
             </span>
-            <span>{pesoObjetivo} kg</span>
+            <span>{pesoObj} kg</span>
           </div>
         </div>
 
