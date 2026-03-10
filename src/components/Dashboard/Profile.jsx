@@ -1,22 +1,26 @@
 import { activityLevels } from '../../data/database';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import './Profile.css';
 
 export default function Profile({ appState }) {
   const { profile, saveProfile, calculateBMR, calculateTDEE, calculateTargetCalories, calculateBMI, getBMICategory } = appState;
-  const bmi = calculateBMI();
+  const bmi    = calculateBMI();
   const bmiCat = getBMICategory();
-  const bmr = Math.round(calculateBMR());
-  const tdee = calculateTDEE();
+  const bmr    = Math.round(calculateBMR());
+  const tdee   = calculateTDEE();
   const target = Math.round(calculateTargetCalories());
 
   const fileRef = useRef(null);
 
+  // ── Estado local para inputs numéricos ─────────────────
+  const [weightInput,  setWeightInput]  = useState(String(profile.weight));
+  const [heightInput,  setHeightInput]  = useState(String(profile.height));
+  const [ageInput,     setAgeInput]     = useState(String(profile.age));
+
+  // ── Avatar con BASE_URL para GitHub Pages ───────────────
   const avatarSrc = profile.avatar
     ? profile.avatar
-    : profile.sex === 'female'
-      ? '/avatars/female.avif'
-      : '/avatars/male.avif';
+    : `${import.meta.env.BASE_URL}avatars/${profile.sex === 'female' ? 'female' : 'male'}.avif`;
 
   const handleFile = (e) => {
     const file = e.target.files[0];
@@ -28,12 +32,6 @@ export default function Profile({ appState }) {
 
   return (
     <div className="profile-page">
-      {/* <div className="page-header animate-fade-up-1">
-        <div>
-          <p className="page-sub">Configuración</p>
-          <h2 className="page-title">Mi Perfil</h2>
-        </div>
-      </div> */}
       <div className="page-header animate-fade-up-1">
         <div>
           <p className="page-sub">Configuración</p>
@@ -68,8 +66,18 @@ export default function Profile({ appState }) {
                   <label>Edad</label>
                   <input
                     type="number" min="10" max="100"
-                    value={profile.age}
-                    onChange={e => saveProfile({ age: parseInt(e.target.value) || 25 })}
+                    value={ageInput}
+                    onChange={e => {
+                      setAgeInput(e.target.value);
+                      const val = parseInt(e.target.value);
+                      if (!isNaN(val) && val >= 10 && val <= 100) saveProfile({ age: val });
+                    }}
+                    onBlur={() => {
+                      const val = parseInt(ageInput);
+                      const safe = isNaN(val) ? 25 : Math.min(100, Math.max(10, val));
+                      setAgeInput(String(safe));
+                      saveProfile({ age: safe });
+                    }}
                   />
                 </div>
               </div>
@@ -81,7 +89,7 @@ export default function Profile({ appState }) {
                     <button
                       key={s}
                       className={`sex-btn ${profile.sex === s ? 'active' : ''}`}
-                      onClick={() => saveProfile({ sex: s })}
+                      onClick={() => saveProfile({ sex: s, avatar: null })}
                     >
                       <i className={`bi bi-gender-${s === 'male' ? 'male' : 'female'}`}></i>
                       {s === 'male' ? 'Masculino' : 'Femenino'}
@@ -95,16 +103,36 @@ export default function Profile({ appState }) {
                   <label>Peso actual (kg)</label>
                   <input
                     type="number" min="20" max="500" step="0.1"
-                    value={profile.weight}
-                    onChange={e => saveProfile({ weight: parseFloat(e.target.value) || 70 })}
+                    value={weightInput}
+                    onChange={e => {
+                      setWeightInput(e.target.value);
+                      const val = parseFloat(e.target.value);
+                      if (!isNaN(val) && val >= 20 && val <= 500) saveProfile({ weight: val });
+                    }}
+                    onBlur={() => {
+                      const val = parseFloat(weightInput);
+                      const safe = isNaN(val) ? 70 : Math.min(500, Math.max(20, val));
+                      setWeightInput(String(safe));
+                      saveProfile({ weight: safe });
+                    }}
                   />
                 </div>
                 <div className="form-field">
                   <label>Altura (cm)</label>
                   <input
                     type="number" min="100" max="250"
-                    value={profile.height}
-                    onChange={e => saveProfile({ height: parseInt(e.target.value) || 170 })}
+                    value={heightInput}
+                    onChange={e => {
+                      setHeightInput(e.target.value);
+                      const val = parseInt(e.target.value);
+                      if (!isNaN(val) && val >= 100 && val <= 250) saveProfile({ height: val });
+                    }}
+                    onBlur={() => {
+                      const val = parseInt(heightInput);
+                      const safe = isNaN(val) ? 170 : Math.min(250, Math.max(100, val));
+                      setHeightInput(String(safe));
+                      saveProfile({ height: safe });
+                    }}
                   />
                 </div>
               </div>
@@ -113,9 +141,9 @@ export default function Profile({ appState }) {
                 <label>Objetivo</label>
                 <div className="goal-selector">
                   {[
-                    { value: 'lose', label: 'Bajar de peso', icon: 'bi-arrow-down-circle', color: 'var(--accent-green)' },
-                    { value: 'maintain', label: 'Mantener', icon: 'bi-dash-circle', color: 'var(--accent-blue)' },
-                    { value: 'gain', label: 'Ganar masa', icon: 'bi-arrow-up-circle', color: 'var(--accent-orange)' },
+                    { value: 'lose',     label: 'Bajar de peso', icon: 'bi-arrow-down-circle', color: 'var(--accent-green)'  },
+                    { value: 'maintain', label: 'Mantener',      icon: 'bi-dash-circle',       color: 'var(--accent-blue)'   },
+                    { value: 'gain',     label: 'Ganar masa',    icon: 'bi-arrow-up-circle',   color: 'var(--accent-orange)' },
                   ].map(g => (
                     <button
                       key={g.value}
@@ -135,9 +163,9 @@ export default function Profile({ appState }) {
                   <label>Ritmo de pérdida</label>
                   <div className="lose-rate-btns">
                     {[
-                      { value: 0.25, label: 'Suave', desc: '0.25 kg/sem' },
-                      { value: 0.5, label: 'Moderado', desc: '0.5 kg/sem' },
-                      { value: 0.75, label: 'Rápido', desc: '0.75 kg/sem' },
+                      { value: 0.25, label: 'Suave',    desc: '0.25 kg/sem' },
+                      { value: 0.5,  label: 'Moderado', desc: '0.5 kg/sem'  },
+                      { value: 0.75, label: 'Rápido',   desc: '0.75 kg/sem' },
                     ].map(r => (
                       <button
                         key={r.value}
@@ -209,8 +237,8 @@ export default function Profile({ appState }) {
                   <span className="result-label">Meta diaria</span>
                   <span className="result-val result-val-main" style={{ color: 'var(--accent-orange)' }}>{target} kcal</span>
                   <span className="result-note">
-                    {profile.goal === 'lose' ? `Déficit de ${tdee - target} kcal/día` :
-                     profile.goal === 'gain' ? `Superávit de ${target - tdee} kcal/día` :
+                    {profile.goal === 'lose'     ? `Déficit de ${tdee - target} kcal/día`    :
+                     profile.goal === 'gain'     ? `Superávit de ${target - tdee} kcal/día`  :
                      'Mantenimiento de peso'}
                   </span>
                 </div>
@@ -229,10 +257,10 @@ export default function Profile({ appState }) {
             </div>
             <div className="bmi-scale">
               {[
-                { min: 0, max: 18.5, label: 'Bajo peso', color: 'var(--accent-blue)' },
-                { min: 18.5, max: 25, label: 'Normal', color: 'var(--accent-green)' },
-                { min: 25, max: 30, label: 'Sobrepeso', color: 'var(--accent-yellow)' },
-                { min: 30, max: 40, label: 'Obesidad', color: 'var(--accent-orange)' },
+                { min: 0,    max: 18.5, label: 'Bajo peso', color: 'var(--accent-blue)'   },
+                { min: 18.5, max: 25,   label: 'Normal',    color: 'var(--accent-green)'  },
+                { min: 25,   max: 30,   label: 'Sobrepeso', color: 'var(--accent-yellow)' },
+                { min: 30,   max: 40,   label: 'Obesidad',  color: 'var(--accent-orange)' },
               ].map(seg => (
                 <div key={seg.label} className="bmi-scale-item">
                   <div className="bmi-scale-bar" style={{

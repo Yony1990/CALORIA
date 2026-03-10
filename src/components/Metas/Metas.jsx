@@ -187,11 +187,31 @@ export default function Metas({ appState }) {
             <button onClick={() => savePesoObjetivo(Math.max(30, pesoObj - 0.5))}>
               <i className="bi bi-dash"></i>
             </button>
-            <input
+            {/* <input
               type="number"
               value={pesoObj}
               min="30" max="300" step="0.5"
               onChange={(e) => savePesoObjetivo(parseFloat(e.target.value) || pesoObj)}
+            /> */}
+            <input
+              type="number"
+              value={pesoObjetivo}
+              min="30" max="300" step="0.5"
+              onChange={(e) => {
+                const raw = e.target.value;
+                if (raw === '' || raw === '-') {
+                  setPesoObjetivo(raw);
+                  return;
+                }
+                const val = parseFloat(raw);
+                if (!isNaN(val)) savePesoObjetivo(val);
+              }}
+              onBlur={(e) => {
+                const val = parseFloat(e.target.value);
+                if (isNaN(val) || val < 30) savePesoObjetivo(30);
+                else if (val > 300) savePesoObjetivo(300);
+                else savePesoObjetivo(val);
+              }}
             />
             <button onClick={() => savePesoObjetivo(Math.min(300, pesoObj + 0.5))}>
               <i className="bi bi-plus"></i>

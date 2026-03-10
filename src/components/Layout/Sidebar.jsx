@@ -26,7 +26,8 @@ export default function Sidebar({ activePage, setActivePage, profile, onAvatarCh
   const fileRef = useRef(null);
   const [expanded, setExpanded] = useState(false);
 
-  const avatarSrc = profile.avatar || `${import.meta.env.BASE_URL}avatars/${profile.gender === 'female' ? 'female' : 'male'}.avif`;
+  // const avatarSrc = profile.avatar || `${import.meta.env.BASE_URL}avatars/${profile.gender === 'female' ? 'female' : 'male'}.avif`;
+  const avatarSrc = profile.avatar || `${import.meta.env.BASE_URL}avatars/${profile.sex === 'female' ? 'female' : 'male'}.avif`;
 
   const handleFile = (e) => {
     const file = e.target.files[0];
