@@ -1,17 +1,19 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import './Sidebar.css';
-import logo from '../../assets/img/logo.png'
+import logo from '../../assets/img/logo.png';
 
+const navItemsPrimary = [
+  { id: 'dashboard',  icon: 'bi-grid-1x2',       label: 'Dashboard'  },
+  { id: 'nutrition',  icon: 'bi-journal-text',   label: 'Nutrición'  },
+  { id: 'calistenia', icon: 'bi-person-arms-up', label: 'Calistenia' },
+  { id: 'bienestar',  icon: 'bi-heart-pulse',    label: 'Bienestar'  },
+  { id: 'metas',      icon: 'bi-trophy',         label: 'Metas'      },
+];
 
-const navItems = [
-  { id: 'dashboard',  icon: 'bi-grid-1x2',         label: 'Dashboard'  },
-  { id: 'nutrition',  icon: 'bi-journal-text',     label: 'Nutrición'  },
-  { id: 'calistenia', icon: 'bi-person-arms-up',   label: 'Calistenia' },
-  { id: 'bienestar',  icon: 'bi-heart-pulse',      label: 'Bienestar'  },
-  { id: 'metas',      icon: 'bi-trophy',           label: 'Metas'      },
-  { id: 'tracking',   icon: 'bi-graph-up-arrow',   label: 'Progreso'   },
-  { id: 'recetas',    icon: 'bi-book',             label: 'Recetas' },
-  { id: 'calculadora', icon: 'bi-calculator', label: 'Calculadora' },
+const navItemsSecondary = [
+  { id: 'tracking',    icon: 'bi-graph-up-arrow', label: 'Progreso'     },
+  { id: 'recetas',     icon: 'bi-book',           label: 'Recetas'      },
+  { id: 'calculadora', icon: 'bi-calculator',     label: 'Calculadora'  },
 ];
 
 const slogans = {
@@ -22,6 +24,7 @@ const slogans = {
 
 export default function Sidebar({ activePage, setActivePage, profile, onAvatarChange }) {
   const fileRef = useRef(null);
+  const [expanded, setExpanded] = useState(false);
 
   const avatarSrc = profile.avatar
     ? profile.avatar
@@ -37,16 +40,19 @@ export default function Sidebar({ activePage, setActivePage, profile, onAvatarCh
     reader.readAsDataURL(file);
   };
 
+  const isSecondaryActive = navItemsSecondary.some(i => i.id === activePage);
+  const allNavItems = [...navItemsPrimary, ...navItemsSecondary];
+
   return (
     <aside className="sidebar">
+      {/* Logo — solo desktop */}
       <div className="sidebar-logo">
         <div className="logo-icon">
-          {/* <i className="bi bi-lightning-charge-fill"></i> */}
           <img src={logo} alt="img logo" />
         </div>
       </div>
 
-      {/* Avatar card */}
+      {/* Avatar card — solo desktop */}
       <div className="sidebar-profile" onClick={() => setActivePage('profile')}>
         <div className="sp-avatar-wrap">
           <img src={avatarSrc} alt="avatar" className="sp-avatar" />
@@ -57,8 +63,9 @@ export default function Sidebar({ activePage, setActivePage, profile, onAvatarCh
         </div>
       </div>
 
+      {/* Nav desktop */}
       <nav className="sidebar-nav">
-        {navItems.map((item) => (
+        {allNavItems.map((item) => (
           <button
             key={item.id}
             className={`nav-item ${activePage === item.id ? 'active' : ''}`}
@@ -71,7 +78,59 @@ export default function Sidebar({ activePage, setActivePage, profile, onAvatarCh
         ))}
       </nav>
 
-      
+      {/* ── MOBILE BOTTOM NAV ─────────────────────────── */}
+      {/* ── MOBILE BOTTOM NAV ─────────────────────────── */}
+<div className="mobile-nav">
+
+  {/* Fila secundaria — se expande hacia arriba */}
+  <div className={`mobile-nav-secondary ${expanded ? 'open' : ''}`}>
+    {navItemsSecondary.map(item => (
+      <button
+        key={item.id}
+        className={`mobile-nav-item ${activePage === item.id ? 'active' : ''}`}
+        onClick={() => { setActivePage(item.id); setExpanded(false); }}
+      >
+        <i className={`bi ${item.icon}`}></i>
+        <span>{item.label}</span>
+      </button>
+    ))}
+  </div>
+
+  {/* Fila principal — avatar siempre visible */}
+  <div className="mobile-nav-primary">
+
+    {/* Avatar siempre primero */}
+    <button
+      className={`mobile-nav-avatar-btn ${activePage === 'profile' ? 'active' : ''}`}
+      onClick={() => { setActivePage('profile'); setExpanded(false); }}
+    >
+      <img src={avatarSrc} alt="avatar" className="mobile-avatar-img" />
+    </button>
+
+    {navItemsPrimary.map(item => (
+      <button
+        key={item.id}
+        className={`mobile-nav-item ${activePage === item.id ? 'active' : ''}`}
+        onClick={() => { setActivePage(item.id); setExpanded(false); }}
+      >
+        <i className={`bi ${item.icon}`}></i>
+        <span>{item.label}</span>
+      </button>
+    ))}
+
+    {/* Flecha expandir */}
+    <button
+      className={`mobile-nav-expand ${expanded ? 'open' : ''} ${isSecondaryActive ? 'secondary-active' : ''}`}
+      onClick={() => setExpanded(!expanded)}
+    >
+      <i className="bi bi-chevron-up expand-arrow"></i>
+      {isSecondaryActive && !expanded && <span className="expand-dot"></span>}
+    </button>
+
+  </div>
+</div>
+
+      <input ref={fileRef} type="file" accept="image/*" style={{ display:'none' }} onChange={handleFile} />
     </aside>
   );
 }
