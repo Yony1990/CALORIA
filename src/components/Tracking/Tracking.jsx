@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area } from 'recharts';
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import './Tracking.css';
 
 const CustomTooltip = ({ active, payload, label }) => {
@@ -19,9 +19,8 @@ const CustomTooltip = ({ active, payload, label }) => {
 };
 
 export default function Tracking({ appState }) {
-  const { tracking, saveTracking, weightHistory, logWeight, profile } = appState;
+  const { tracking, saveTracking, weightHistory, logWeight, profile, saveProfile } = appState;
   const [newWeight, setNewWeight] = useState('');
-  const [activeTab, setActiveTab] = useState('weight');
 
   const chartData = weightHistory.slice(-30).map(entry => ({
     date: new Date(entry.date).toLocaleDateString('es-ES', { day: '2-digit', month: 'short' }),
@@ -32,6 +31,7 @@ export default function Tracking({ appState }) {
     const w = parseFloat(newWeight);
     if (w > 20 && w < 500) {
       logWeight(w);
+      saveProfile({ weight: w }); // ← sincroniza con profile.weight
       setNewWeight('');
     }
   };
@@ -44,17 +44,17 @@ export default function Tracking({ appState }) {
     if (!tracking.bodyFat) return null;
     const bf = tracking.bodyFat;
     if (profile.sex === 'male') {
-      if (bf < 6) return { label: 'Esencial', color: 'var(--accent-blue)' };
-      if (bf < 14) return { label: 'Atlético', color: 'var(--accent-green)' };
-      if (bf < 18) return { label: 'Fitness', color: 'var(--accent-yellow)' };
+      if (bf < 6)  return { label: 'Esencial', color: 'var(--accent-blue)'   };
+      if (bf < 14) return { label: 'Atlético', color: 'var(--accent-green)'  };
+      if (bf < 18) return { label: 'Fitness',  color: 'var(--accent-yellow)' };
       if (bf < 25) return { label: 'Promedio', color: 'var(--accent-orange)' };
-      return { label: 'Obeso', color: '#ff4444' };
+      return             { label: 'Obeso',    color: '#ff4444'               };
     } else {
-      if (bf < 14) return { label: 'Esencial', color: 'var(--accent-blue)' };
-      if (bf < 21) return { label: 'Atlético', color: 'var(--accent-green)' };
-      if (bf < 25) return { label: 'Fitness', color: 'var(--accent-yellow)' };
+      if (bf < 14) return { label: 'Esencial', color: 'var(--accent-blue)'   };
+      if (bf < 21) return { label: 'Atlético', color: 'var(--accent-green)'  };
+      if (bf < 25) return { label: 'Fitness',  color: 'var(--accent-yellow)' };
       if (bf < 32) return { label: 'Promedio', color: 'var(--accent-orange)' };
-      return { label: 'Obeso', color: '#ff4444' };
+      return             { label: 'Obeso',    color: '#ff4444'               };
     }
   };
 
@@ -74,7 +74,7 @@ export default function Tracking({ appState }) {
         <div className="card track-stat">
           <i className="bi bi-person-fill" style={{ color: 'var(--accent-green)', fontSize: '22px' }}></i>
           <div>
-            <span className="track-stat-val">{tracking.currentWeight} kg</span>
+            <span className="track-stat-val">{profile.weight} kg</span>
             <span className="track-stat-lbl">Peso actual</span>
           </div>
         </div>
@@ -115,8 +115,8 @@ export default function Tracking({ appState }) {
                 <AreaChart data={chartData}>
                   <defs>
                     <linearGradient id="weightGrad" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="var(--accent-green)" stopOpacity={0.3} />
-                      <stop offset="95%" stopColor="var(--accent-green)" stopOpacity={0} />
+                      <stop offset="5%"  stopColor="var(--accent-green)" stopOpacity={0.3} />
+                      <stop offset="95%" stopColor="var(--accent-green)" stopOpacity={0}   />
                     </linearGradient>
                   </defs>
                   <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
@@ -159,7 +159,9 @@ export default function Tracking({ appState }) {
               <div className="weight-history-list">
                 {weightHistory.slice(-5).reverse().map((entry, i) => (
                   <div key={i} className="weight-history-item">
-                    <span className="wh-date">{new Date(entry.date).toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric' })}</span>
+                    <span className="wh-date">
+                      {new Date(entry.date).toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric' })}
+                    </span>
                     <span className="wh-val">{entry.weight} kg</span>
                   </div>
                 ))}
@@ -168,17 +170,17 @@ export default function Tracking({ appState }) {
           </div>
         </div>
 
-        {/* Body measurements  */}
+        {/* Body measurements */}
         <div className="tracking-side animate-fade-up-3">
           <div className="card measures-card">
             <p className="card-label"><i className="bi bi-rulers"></i> Medidas corporales</p>
             <div className="measures-grid">
               {[
-                { key: 'waist', label: 'Cintura', icon: 'bi-circle', color: 'var(--accent-orange)' },
-                { key: 'hip', label: 'Cadera', icon: 'bi-circle-fill', color: 'var(--accent-purple)' },
-                { key: 'chest', label: 'Pecho', icon: 'bi-heart', color: 'var(--accent-blue)' },
-                { key: 'arms', label: 'Brazos', icon: 'bi-lightning', color: 'var(--accent-yellow)' },
-                { key: 'bodyFat', label: 'Grasa %', icon: 'bi-percent', color: 'var(--accent-green)' },
+                { key: 'waist',   label: 'Cintura', icon: 'bi-circle',      color: 'var(--accent-orange)' },
+                { key: 'hip',     label: 'Cadera',  icon: 'bi-circle-fill', color: 'var(--accent-purple)' },
+                { key: 'chest',   label: 'Pecho',   icon: 'bi-heart',       color: 'var(--accent-blue)'   },
+                { key: 'arms',    label: 'Brazos',  icon: 'bi-lightning',   color: 'var(--accent-yellow)' },
+                { key: 'bodyFat', label: 'Grasa %', icon: 'bi-percent',     color: 'var(--accent-green)'  },
               ].map(m => (
                 <div key={m.key} className="measure-field">
                   <label>
@@ -199,7 +201,7 @@ export default function Tracking({ appState }) {
             </div>
           </div>
 
-          {/* Water goal settings */}
+          {/* Water goal */}
           <div className="card water-goal-card">
             <p className="card-label"><i className="bi bi-droplet"></i> Meta de agua</p>
             <div className="water-goal-display">
