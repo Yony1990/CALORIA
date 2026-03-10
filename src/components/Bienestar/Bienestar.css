@@ -69,21 +69,21 @@
   flex-shrink: 0;
 }
 
-.badge-green { background: rgba(0,229,160,0.1); color: var(--accent-green); border: 1px solid rgba(0,229,160,0.2); }
+.badge-green  { background: rgba(0,229,160,0.1);  color: var(--accent-green);  border: 1px solid rgba(0,229,160,0.2);  }
 .badge-orange { background: rgba(249,115,22,0.1); color: var(--accent-orange); border: 1px solid rgba(249,115,22,0.2); }
 
-/* Sliders */
-
+/* ── Slider ─────────────────────────────────────── */
 .habito-slider-wrap {
   position: relative;
   width: 100%;
-  height: 28px;
+  height: 36px;
   display: flex;
   align-items: center;
   cursor: pointer;
   user-select: none;
-  touch-action: none; 
+  touch-action: none;
   -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .habito-track-bg {
@@ -104,47 +104,30 @@
   border-radius: 3px;
   pointer-events: none;
   box-shadow: 0 0 6px var(--color);
-  transition: width 0.05s, background 0.3s;
 }
 
 .habito-thumb {
   position: absolute;
   left: var(--pct);
-  transform: translateX(-50%);
-  width: 0;
-  height: 0;
-  border-left: 9px solid transparent;
-  border-right: 9px solid transparent;
-  border-bottom: 16px solid var(--color);
-  filter: drop-shadow(0 0 4px var(--color));
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--color);
+  box-shadow: 0 0 8px var(--color);
   pointer-events: none;
-  bottom: 11px;
-  transition: left 0.05s, border-bottom-color 0.3s;
+  border: 3px solid rgba(10, 14, 23, 0.9);
 }
 
-.habito-card:hover .habito-thumb {
-    animation: rotar .2s ease;
-    
-}
-
-@keyframes rotar {
-    0% {
-        rotate: 360deg;
-
-    }
-    100% {
-        rotate: 0deg;
-
-    }
-}
-
-
+/* ── Tip ─────────────────────────────────────────── */
 .habito-tip {
   font-size: 11px;
   color: var(--text-muted);
   line-height: 1.4;
 }
 
+/* ── Score ───────────────────────────────────────── */
 .score-card { padding: 20px; }
 
 .score-display {
@@ -153,11 +136,6 @@
   gap: 30px;
   margin-top: 14px;
 }
-
-/* .score-ring-wrap {
-  position: relative;
-  flex-shrink: 0;
-} */
 
 .score-ring-wrap {
   position: relative;
@@ -205,6 +183,7 @@
 
 .score-row-val { font-size: 11px; font-weight: 700; width: 35px; text-align: right; flex-shrink: 0; }
 
+/* ── Historial ───────────────────────────────────── */
 .historial-card { padding: 20px; }
 
 .historial-grid {
@@ -229,12 +208,12 @@
 .historial-score { font-size: 20px; font-weight: 800; font-family: var(--font-display); }
 .historial-label { font-size: 10px; color: var(--text-muted); }
 
+/* ── Responsive ─────────────────────────────────── */
 @media (max-width: 768px) {
   .bienestar-page { padding: 12px; }
-  .impacto-grid { grid-template-columns: repeat(2, 1fr); }
-  .habitos-grid { grid-template-columns: repeat(2, 1fr); }
-  .score-display { flex-direction: column; }
-  .habito-card:hover .habito-thumb { animation: none; }
+  .impacto-grid   { grid-template-columns: repeat(2, 1fr); }
+  .habitos-grid   { grid-template-columns: repeat(2, 1fr); }
+  .score-display  { flex-direction: column; }
 }
 
 @media (max-width: 480px) {
