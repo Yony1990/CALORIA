@@ -82,6 +82,8 @@
   align-items: center;
   cursor: pointer;
   user-select: none;
+  touch-action: none; 
+  -webkit-user-select: none;
 }
 
 .habito-track-bg {
@@ -232,6 +234,7 @@
   .impacto-grid { grid-template-columns: repeat(2, 1fr); }
   .habitos-grid { grid-template-columns: repeat(2, 1fr); }
   .score-display { flex-direction: column; }
+  .habito-card:hover .habito-thumb { animation: none; }
 }
 
 @media (max-width: 480px) {
