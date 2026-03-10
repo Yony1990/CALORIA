@@ -23,11 +23,3 @@
   }
 }
 
-
-@media (hover: none) {
-  .diet-btn:hover,
-  .diet-btn:hover i,
-  .diet-btn:hover .diet-btn-label {
-    all: revert;
-  }
-}

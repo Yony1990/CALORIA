@@ -403,3 +403,10 @@
 @media (max-width: 768px) {
   .diet-modal { max-height: 90vh; }
 }
+
+@media (hover: none) {
+  .diet-btn:hover { border-color: var(--border); background: transparent; }
+  .diet-btn:hover i { color: var(--text-muted); }
+  .diet-btn:hover .diet-btn-label { color: var(--text-secondary); }
+  .diet-btn:hover .diet-btn-ver { color: var(--text-muted); }
+}
