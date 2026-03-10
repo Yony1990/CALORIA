@@ -189,18 +189,52 @@ export default function Bienestar({ appState }) {
                 </div>
 
                 {/* Slider con track visible */}
-                {/* <div className="habito-slider-wrap" style={{ '--color': color, '--pct': `${pct}%` }}>
-                  <div className="habito-track-bg" />
-                  <div className="habito-track-fill" />
-                  <input
-                    type="range"
-                    min={h.min} max={h.max} step={h.step}
-                    value={val}
-                    onChange={e => saveHabito(h.id, parseFloat(e.target.value))}
-                    className="habito-slider"
-                  />
-                </div> */}
+
                 <div
+                    className="habito-slider-wrap"
+                    style={{ '--color': color, '--pct': `${pct}%` }}
+                    onClick={e => {
+                        const rect = e.currentTarget.getBoundingClientRect();
+                        const x = e.clientX - rect.left;
+                        const newPct = Math.max(0, Math.min(1, x / rect.width));
+                        const newVal = h.min + newPct * (h.max - h.min);
+                        const stepped = Math.round(newVal / h.step) * h.step;
+                        saveHabito(h.id, parseFloat(Math.min(h.max, Math.max(h.min, stepped)).toFixed(2)));
+                    }}
+                    onMouseMove={e => {
+                        if (e.buttons !== 1) return;
+                        const rect = e.currentTarget.getBoundingClientRect();
+                        const x = e.clientX - rect.left;
+                        const newPct = Math.max(0, Math.min(1, x / rect.width));
+                        const newVal = h.min + newPct * (h.max - h.min);
+                        const stepped = Math.round(newVal / h.step) * h.step;
+                        saveHabito(h.id, parseFloat(Math.min(h.max, Math.max(h.min, stepped)).toFixed(2)));
+                    }}
+                    onTouchStart={e => {
+                        e.preventDefault();
+                        const rect = e.currentTarget.getBoundingClientRect();
+                        const x = e.touches[0].clientX - rect.left;
+                        const newPct = Math.max(0, Math.min(1, x / rect.width));
+                        const newVal = h.min + newPct * (h.max - h.min);
+                        const stepped = Math.round(newVal / h.step) * h.step;
+                        saveHabito(h.id, parseFloat(Math.min(h.max, Math.max(h.min, stepped)).toFixed(2)));
+                    }}
+                    onTouchMove={e => {
+                        e.preventDefault();
+                        const rect = e.currentTarget.getBoundingClientRect();
+                        const x = e.touches[0].clientX - rect.left;
+                        const newPct = Math.max(0, Math.min(1, x / rect.width));
+                        const newVal = h.min + newPct * (h.max - h.min);
+                        const stepped = Math.round(newVal / h.step) * h.step;
+                        saveHabito(h.id, parseFloat(Math.min(h.max, Math.max(h.min, stepped)).toFixed(2)));
+                    }}
+                    >
+                    <div className="habito-track-bg" />
+                    <div className="habito-track-fill" />
+                    <div className="habito-thumb" />
+                </div>
+                
+                {/* <div
                     className="habito-slider-wrap"
                     style={{ '--color': color, '--pct': `${pct}%` }}
                     onClick={e => {
@@ -224,7 +258,7 @@ export default function Bienestar({ appState }) {
                     <div className="habito-track-bg" />
                     <div className="habito-track-fill" />
                     <div className="habito-thumb" />
-                </div>
+                </div> */}
 
                 <p className="habito-tip"><i className="bi bi-lightbulb"></i> {h.tip}</p>
               </div>
