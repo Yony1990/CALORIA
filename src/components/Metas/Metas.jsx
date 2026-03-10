@@ -147,6 +147,7 @@ export default function Metas({ appState }) {
   const logrosDesbloqueados = LOGROS.filter((l) => l.condition(stats));
   const logrosBloqueados    = LOGROS.filter((l) => !l.condition(stats));
 
+  console.log({ pesoActual, pesoInicial, pesoObj, totalCambio, cambioHecho, pctPeso });
   return (
     <div className="metas-page">
 
