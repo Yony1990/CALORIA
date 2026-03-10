@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Sidebar from './components/Layout/Sidebar';
 import Dashboard from './components/Dashboard/Dashboard';
 import Nutrition from './components/Nutrition/Advanced';
@@ -32,6 +32,10 @@ export default function App() {
       default:           return <Dashboard appState={appState} />;
     }
   };
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, [activePage]);
 
   return (
     <div className="app-layout">
