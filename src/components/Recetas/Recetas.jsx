@@ -3,7 +3,6 @@ import { foodDatabase } from '../../data/database';
 import './Recetas.css';
 
 const RECETAS = [
-  // ── DESAYUNOS ─────────────────────────────────────────
   {
     id: 1, nombre: 'Avena con frutas tropicales', icono: '🌾',
     tipo: 'desayuno', meta: ['maintain', 'lose', 'gain'],
@@ -69,8 +68,6 @@ const RECETAS = [
       { id: 81, nombre: 'Aceite oliva', grams: 10  },
     ],
   },
-
-  // ── ALMUERZOS ─────────────────────────────────────────
   {
     id: 6, nombre: 'Arroz con pollo cubano', icono: '🍛',
     tipo: 'almuerzo', meta: ['maintain', 'gain'],
@@ -170,8 +167,6 @@ const RECETAS = [
       { id: 81, nombre: 'Aceite oliva',       grams: 10  },
     ],
   },
-
-  // ── CENAS ─────────────────────────────────────────────
   {
     id: 13, nombre: 'Salmón con boniato', icono: '🐠',
     tipo: 'cena', meta: ['lose', 'maintain', 'gain'],
@@ -204,7 +199,7 @@ const RECETAS = [
     tipo: 'cena', meta: ['maintain', 'gain'],
     tiempo: 20, dificultad: 'Fácil',
     cal: 440, protein: 46, carbs: 10, fat: 24, fiber: 3,
-    desc: 'Clásico uruguayo. Alto en proteínas y zinc. Acompañado de ensalada fresca.',
+    desc: 'Clásico uruguayo. Alto en proteínas y zinc.',
     ingredientes: [
       { id: 5,  nombre: 'Carne de res', grams: 200 },
       { id: 65, nombre: 'Lechuga',      grams: 80  },
@@ -218,7 +213,7 @@ const RECETAS = [
     tipo: 'cena', meta: ['gain', 'maintain'],
     tiempo: 20, dificultad: 'Fácil',
     cal: 450, protein: 32, carbs: 56, fat: 8, fiber: 4,
-    desc: 'Pasta con proteína magra. Ideal post-entrenamiento para recuperación muscular.',
+    desc: 'Pasta con proteína magra. Ideal post-entrenamiento.',
     ingredientes: [
       { id: 25, nombre: 'Pasta cocida',  grams: 200 },
       { id: 3,  nombre: 'Atún en agua', grams: 120 },
@@ -254,8 +249,6 @@ const RECETAS = [
       { id: 63, nombre: 'Tomate',             grams: 60  },
     ],
   },
-
-  // ── SNACKS ────────────────────────────────────────────
   {
     id: 19, nombre: 'Aguacate con galletas', icono: '🥑',
     tipo: 'snack', meta: ['maintain', 'gain'],
@@ -283,43 +276,83 @@ const RECETAS = [
   },
 ];
 
-const TIPOS  = ['todos', 'desayuno', 'almuerzo', 'cena', 'snack'];
-const METAS  = { lose: 'Bajar peso', maintain: 'Mantener', gain: 'Ganar masa' };
-const COLORS = {
+const DIAS    = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
+const TIPOS   = ['todos', 'desayuno', 'almuerzo', 'cena', 'snack'];
+const METAS   = { lose: 'Bajar peso', maintain: 'Mantener', gain: 'Ganar masa' };
+const COLORS  = {
   desayuno: 'var(--accent-yellow)',
   almuerzo: 'var(--accent-green)',
   cena:     'var(--accent-blue)',
   snack:    'var(--accent-orange)',
 };
+const COMIDAS = ['desayuno', 'almuerzo', 'cena', 'snack'];
 
 export default function Recetas({ appState }) {
-  const { addMealItem } = appState;
+  const { profile } = appState;
+
   const [filtroTipo, setFiltroTipo]       = useState('todos');
   const [filtroMeta, setFiltroMeta]       = useState('todos');
   const [busqueda, setBusqueda]           = useState('');
   const [recetaAbierta, setRecetaAbierta] = useState(null);
   const [agregado, setAgregado]           = useState({});
 
+  // ── Selector plan semanal ──────────────────────────────
+  const [diaSeleccionado,    setDiaSeleccionado]    = useState('Lunes');
+  const [comidaSeleccionada, setComidaSeleccionada] = useState('desayuno');
+
+  // Filtro de dieta
+  const dietaActiva = profile?.dietType || 'balanced';
+  const DIETA_FILTROS = {
+    balanced:      () => true,
+    keto:          (r) => r.fat >= 15 && r.carbs <= 10,
+    lowcarb:       (r) => r.carbs <= 30,
+    highprotein:   (r) => r.protein >= 25,
+    vegan:         (r) => !r.ingredientes.some(ing => [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,43,44,45,52,53,56].includes(ing.id)),
+    mediterranean: (r) => r.fiber >= 3 || r.fat >= 10,
+  };
+  const DIETA_LABELS = {
+    balanced:      null,
+    keto:          { label: 'Cetogénica',    color: 'var(--accent-yellow)' },
+    lowcarb:       { label: 'Low Carb',      color: 'var(--accent-blue)'   },
+    highprotein:   { label: 'Alta Proteína', color: 'var(--accent-orange)' },
+    vegan:         { label: 'Vegana',        color: 'var(--accent-green)'  },
+    mediterranean: { label: 'Mediterránea',  color: '#4ecdc4'              },
+  };
+
   const recetasFiltradas = RECETAS.filter(r => {
-    const matchTipo = filtroTipo === 'todos' || r.tipo === filtroTipo;
-    const matchMeta = filtroMeta === 'todos' || r.meta.includes(filtroMeta);
-    const matchBusq = r.nombre.toLowerCase().includes(busqueda.toLowerCase());
-    return matchTipo && matchMeta && matchBusq;
+    const matchTipo  = filtroTipo === 'todos' || r.tipo === filtroTipo;
+    const matchMeta  = filtroMeta === 'todos' || r.meta.includes(filtroMeta);
+    const matchBusq  = r.nombre.toLowerCase().includes(busqueda.toLowerCase());
+    const matchDieta = (DIETA_FILTROS[dietaActiva] || (() => true))(r);
+    return matchTipo && matchMeta && matchBusq && matchDieta;
   });
 
-  const agregarAlDiario = (receta) => {
-    const mealMap = { desayuno: 'breakfast', almuerzo: 'lunch', cena: 'dinner', snack: 'snacks' };
-    const mealType = mealMap[receta.tipo];
+  // ── Agregar al Plan Semanal ────────────────────────────
+  const agregarAlPlan = (receta) => {
+    const planGuardado = localStorage.getItem('caloria_plan_semanal');
+    const plan = planGuardado ? JSON.parse(planGuardado) : {};
 
-    receta.ingredientes.forEach(ing => {
-      const foodData = foodDatabase.find(f => f.id === ing.id);
-      if (!foodData) return;
-      addMealItem(mealType, {
-        ...foodData,
-        grams: ing.grams,
-        name: `${foodData.name} (${receta.nombre})`,
-      });
-    });
+    // Asegurarse que el día existe
+    if (!plan[diaSeleccionado]) {
+      plan[diaSeleccionado] = { desayuno: null, almuerzo: null, cena: null, snack: null };
+    }
+
+    // Construir el item con datos reales de la receta
+    plan[diaSeleccionado][comidaSeleccionada] = {
+      id:      receta.id,
+      name:    receta.nombre,
+      icon:    receta.icono,
+      cal:     receta.cal,
+      protein: receta.protein,
+      carbs:   receta.carbs,
+      fat:     receta.fat,
+      fiber:   receta.fiber,
+      grams:   100,
+      esReceta: true,
+      ingredientes: receta.ingredientes,
+    };
+
+    localStorage.setItem('caloria_plan_semanal', JSON.stringify(plan));
 
     setAgregado(prev => ({ ...prev, [receta.id]: true }));
     setTimeout(() => setAgregado(prev => ({ ...prev, [receta.id]: false })), 3000);
@@ -339,6 +372,17 @@ export default function Recetas({ appState }) {
           <i className="bi bi-book-fill"></i> {RECETAS.length} recetas
         </span>
       </div>
+
+      {/* Banner dieta activa */}
+      {DIETA_LABELS[dietaActiva] && (
+        <div className="dieta-activa-banner animate-fade-up-2">
+          <i className="bi bi-funnel-fill"></i>
+          Filtrando por dieta: <strong style={{ color: DIETA_LABELS[dietaActiva].color }}>
+            {DIETA_LABELS[dietaActiva].label}
+          </strong>
+          <span className="dieta-activa-sub">· Cambialo en Nutrición</span>
+        </div>
+      )}
 
       {/* Filtros */}
       <div className="card recetas-filtros animate-fade-up-2">
@@ -391,7 +435,10 @@ export default function Recetas({ appState }) {
       {/* Grid de recetas */}
       <div className="recetas-grid animate-fade-up-3">
         {recetasFiltradas.map(r => (
-          <div key={r.id} className="receta-card card" onClick={() => setRecetaAbierta(r)}>
+          <div key={r.id} className="receta-card card" onClick={() => {
+            setRecetaAbierta(r);
+            setComidaSeleccionada(r.tipo); // preseleccionar tipo de la receta
+          }}>
             <div className="receta-top">
               <span className="receta-icono">{r.icono}</span>
               <div
@@ -447,7 +494,7 @@ export default function Recetas({ appState }) {
             <div className="receta-modal-ingredientes">
               <p className="receta-modal-label"><i className="bi bi-basket2"></i> Ingredientes</p>
               {recetaAbierta.ingredientes.map((ing, i) => {
-                const food = foodDatabase.find(f => f.id === ing.id);
+                const food    = foodDatabase.find(f => f.id === ing.id);
                 const calReal = food ? Math.round(food.cal * ing.grams / 100) : 0;
                 return (
                   <div key={i} className="rm-ingrediente">
@@ -465,13 +512,54 @@ export default function Recetas({ appState }) {
               <span><i className="bi bi-bullseye"></i> {recetaAbierta.meta.map(m => METAS[m]).join(', ')}</span>
             </div>
 
-            <button
-              className={`btn btn-primary receta-agregar-btn ${agregado[recetaAbierta.id] ? 'agregado' : ''}`}
-              onClick={() => agregarAlDiario(recetaAbierta)}
-            >
-              <i className={`bi ${agregado[recetaAbierta.id] ? 'bi-check-circle-fill' : 'bi-plus-circle'}`}></i>
-              {agregado[recetaAbierta.id] ? '¡Agregado al diario!' : `Agregar al ${recetaAbierta.tipo}`}
-            </button>
+            {/* ── Selector Plan Semanal ── */}
+            <div className="receta-plan-selector">
+              <p className="receta-modal-label">
+                <i className="bi bi-calendar-week"></i> Agregar al Plan Semanal
+              </p>
+              <div className="receta-plan-row">
+                <div className="receta-plan-field">
+                  <label>Día</label>
+                  <div className="receta-plan-dias">
+                    {DIAS.map(dia => (
+                      <button
+                        key={dia}
+                        className={`receta-dia-btn ${diaSeleccionado === dia ? 'active' : ''}`}
+                        onClick={() => setDiaSeleccionado(dia)}
+                      >
+                        {dia.slice(0, 3)}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                <div className="receta-plan-field">
+                  <label>Comida</label>
+                  <div className="receta-plan-comidas">
+                    {COMIDAS.map(c => (
+                      <button
+                        key={c}
+                        className={`receta-comida-btn ${comidaSeleccionada === c ? 'active' : ''}`}
+                        onClick={() => setComidaSeleccionada(c)}
+                      >
+                        {c.charAt(0).toUpperCase() + c.slice(1)}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <button
+                className={`btn btn-primary receta-agregar-btn ${agregado[recetaAbierta.id] ? 'agregado' : ''}`}
+                onClick={() => agregarAlPlan(recetaAbierta)}
+              >
+                <i className={`bi ${agregado[recetaAbierta.id] ? 'bi-check-circle-fill' : 'bi-calendar-plus'}`}></i>
+                {agregado[recetaAbierta.id]
+                  ? `¡Agregado al plan del ${diaSeleccionado}!`
+                  : `Agregar al plan — ${diaSeleccionado} · ${comidaSeleccionada}`
+                }
+              </button>
+            </div>
+
           </div>
         </div>
       )}

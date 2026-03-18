@@ -240,3 +240,82 @@
 @media (max-width: 480px) {
   .recetas-grid { grid-template-columns: 1fr; }
 }
+
+
+
+
+/* ── Selector Plan Semanal ──────────────────────── */
+.receta-plan-selector {
+  border-top: 1px solid var(--border);
+  padding-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.receta-plan-row {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.receta-plan-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.receta-plan-field label {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.receta-plan-dias,
+.receta-plan-comidas {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.receta-dia-btn,
+.receta-comida-btn {
+  padding: 5px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 12px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.receta-dia-btn:hover,
+.receta-comida-btn:hover {
+  border-color: var(--accent-green);
+  color: var(--accent-green);
+}
+
+.receta-dia-btn.active,
+.receta-comida-btn.active {
+  background: var(--accent-green-dim);
+  border-color: var(--accent-green);
+  color: var(--accent-green);
+}
+
+.receta-agregar-btn {
+  width: 100%;
+  padding: 12px;
+  font-size: 13px;
+  font-weight: 700;
+  transition: all 0.3s;
+}
+
+.receta-agregar-btn.agregado {
+  background: var(--accent-green);
+  color: #0a0e17;
+}

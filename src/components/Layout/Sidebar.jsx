@@ -11,9 +11,10 @@ const navItemsPrimary = [
 ];
 
 const navItemsSecondary = [
-  { id: 'tracking',    icon: 'bi-graph-up-arrow', label: 'Progreso'     },
-  { id: 'recetas',     icon: 'bi-book',           label: 'Recetas'      },
-  { id: 'calculadora', icon: 'bi-calculator',     label: 'Calculadora'  },
+  { id: 'tracking',    icon: 'bi-graph-up-arrow', label: 'Progreso'    },
+  { id: 'recetas',     icon: 'bi-book',           label: 'Recetas'     },
+  { id: 'calculadora', icon: 'bi-calculator',     label: 'Calculadora' },
+  { id: 'plan',        icon: 'bi-calendar-week',  label: 'Plan'        },
 ];
 
 const slogans = {
@@ -26,7 +27,6 @@ export default function Sidebar({ activePage, setActivePage, profile, onAvatarCh
   const fileRef = useRef(null);
   const [expanded, setExpanded] = useState(false);
 
-  // const avatarSrc = profile.avatar || `${import.meta.env.BASE_URL}avatars/${profile.gender === 'female' ? 'female' : 'male'}.avif`;
   const avatarSrc = profile.avatar || `${import.meta.env.BASE_URL}avatars/${profile.sex === 'female' ? 'female' : 'male'}.avif`;
 
   const handleFile = (e) => {

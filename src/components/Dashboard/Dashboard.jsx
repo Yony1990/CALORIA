@@ -1,6 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { foodDatabase } from '../../data/database';
 import './Dashboard.css';
+
+const DIAS_SEMANA = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+const MEAL_MAP = { desayuno: 'breakfast', almuerzo: 'lunch', cena: 'dinner', snack: 'snacks' };
 
 function CircleProgress({ value, max, color, size = 120, strokeWidth = 8, children }) {
   const radius = (size - strokeWidth * 2) / 2;
@@ -260,6 +263,30 @@ export default function Dashboard({ appState }) {
     tracking, addWater, removeWater,
   } = appState;
 
+  // ── Sincronización automática con Plan Semanal ─────────
+  useEffect(() => {
+    const diaHoy = DIAS_SEMANA[new Date().getDay()];
+    const planGuardado = localStorage.getItem('caloria_plan_semanal');
+    if (!planGuardado) return;
+
+    const plan = JSON.parse(planGuardado);
+    const planHoy = plan[diaHoy];
+    if (!planHoy) return;
+
+    const diarioVacio =
+      meals.breakfast.length === 0 &&
+      meals.lunch.length     === 0 &&
+      meals.dinner.length    === 0 &&
+      meals.snacks.length    === 0;
+
+    if (!diarioVacio) return;
+
+    Object.entries(planHoy).forEach(([comida, item]) => {
+      if (!item) return;
+      addMealItem(MEAL_MAP[comida], { ...item, grams: item.grams || 100 });
+    });
+  }, []);
+
   const targetCal = calculateTargetCalories();
   const consumed  = getTotalConsumed();
   const burned    = getTotalBurned();
@@ -338,7 +365,6 @@ export default function Dashboard({ appState }) {
             <MacroBar label="Fibra"         value={consumed.fiber}   goal={28}                  color="var(--accent-green)"  icon="bi-tree" />
           </div>
 
-          {/* Donas + Tips */}
           <div className="macros-bottom">
             <div className="macros-donuts">
               <p className="macros-donuts-label"><i className="bi bi-circle-half"></i> Distribución</p>

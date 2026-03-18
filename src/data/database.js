@@ -101,159 +101,102 @@ export const foodDatabase = [
   { id:83, name:'Mayonesa',               cat:'grasa',       cal:680, protein:1,   carbs:0.6, fat:75,  fiber:0,   icon:'🥄', vitC:0,   vitD:0,   vitB12:0,   iron:0.4, calcium:13,  magnesium:3,  zinc:0.2, potassium:20,  omega3:0.5 },
   { id:84, name:'Azúcar blanca',          cat:'extra',       cal:387, protein:0,   carbs:100, fat:0,   fiber:0,   icon:'🍬', vitC:0,   vitD:0,   vitB12:0,   iron:0.1, calcium:1,   magnesium:0,  zinc:0,   potassium:2,   omega3:0   },
   { id:85, name:'Miel',                   cat:'extra',       cal:304, protein:0.3, carbs:82,  fat:0,   fiber:0.2, icon:'🍯', vitC:0.5, vitD:0,   vitB12:0,   iron:0.4, calcium:6,   magnesium:2,  zinc:0.2, potassium:52,  omega3:0   },
+
+  // ── BEBIDAS ────────────────────────────────────────────
+  { id:86,  name:'Agua',                    cat:'bebida', cal:0,   protein:0,   carbs:0,    fat:0,   fiber:0,   icon:'💧', vitC:0,   vitD:0,   vitB12:0,   iron:0,   calcium:0,   magnesium:0,   zinc:0,   potassium:0,   omega3:0   },
+  { id:87,  name:'Agua de coco',            cat:'bebida', cal:19,  protein:0.7, carbs:3.7,  fat:0.2, fiber:1.1, icon:'🥥', vitC:2.4, vitD:0,   vitB12:0,   iron:0.3, calcium:24,  magnesium:25,  zinc:0.1, potassium:250, omega3:0   },
+  { id:88,  name:'Jugo de naranja natural', cat:'bebida', cal:45,  protein:0.7, carbs:10,   fat:0.2, fiber:0.2, icon:'🍊', vitC:50,  vitD:0,   vitB12:0,   iron:0.2, calcium:11,  magnesium:11,  zinc:0.1, potassium:200, omega3:0   },
+  { id:89,  name:'Jugo de mango natural',   cat:'bebida', cal:60,  protein:0.4, carbs:15,   fat:0.2, fiber:0.3, icon:'🥭', vitC:28,  vitD:0,   vitB12:0,   iron:0.1, calcium:10,  magnesium:10,  zinc:0.1, potassium:150, omega3:0   },
+  { id:90,  name:'Smoothie de frutas',      cat:'bebida', cal:95,  protein:1.5, carbs:22,   fat:0.5, fiber:2.0, icon:'🥤', vitC:35,  vitD:0,   vitB12:0,   iron:0.3, calcium:20,  magnesium:15,  zinc:0.2, potassium:280, omega3:0   },
+  { id:91,  name:'Leche de almendras',      cat:'bebida', cal:17,  protein:0.6, carbs:1.5,  fat:1.1, fiber:0.3, icon:'🥛', vitC:0,   vitD:1.0, vitB12:0,   iron:0.2, calcium:173, magnesium:6,   zinc:0.1, potassium:67,  omega3:0   },
+  { id:92,  name:'Té verde',                cat:'bebida', cal:1,   protein:0,   carbs:0.2,  fat:0,   fiber:0,   icon:'🍵', vitC:0,   vitD:0,   vitB12:0,   iron:0.1, calcium:1,   magnesium:1,   zinc:0,   potassium:20,  omega3:0   },
+  { id:93,  name:'Té negro',                cat:'bebida', cal:2,   protein:0,   carbs:0.5,  fat:0,   fiber:0,   icon:'🍵', vitC:0,   vitD:0,   vitB12:0,   iron:0.2, calcium:2,   magnesium:2,   zinc:0,   potassium:37,  omega3:0   },
+  { id:94,  name:'Mate',                    cat:'bebida', cal:5,   protein:0.3, carbs:0.8,  fat:0,   fiber:0,   icon:'🧉', vitC:0,   vitD:0,   vitB12:0,   iron:0.5, calcium:10,  magnesium:10,  zinc:0.1, potassium:40,  omega3:0   },
+  { id:95,  name:'Café negro',              cat:'bebida', cal:2,   protein:0.3, carbs:0,    fat:0,   fiber:0,   icon:'☕', vitC:0,   vitD:0,   vitB12:0,   iron:0.1, calcium:5,   magnesium:7,   zinc:0,   potassium:49,  omega3:0   },
+  { id:96,  name:'Refresco/Cola',           cat:'bebida', cal:42,  protein:0,   carbs:10.6, fat:0,   fiber:0,   icon:'🥤', vitC:0,   vitD:0,   vitB12:0,   iron:0.1, calcium:7,   magnesium:3,   zinc:0,   potassium:4,   omega3:0   },
+  { id:97,  name:'Refresco light/zero',     cat:'bebida', cal:1,   protein:0,   carbs:0.1,  fat:0,   fiber:0,   icon:'🥤', vitC:0,   vitD:0,   vitB12:0,   iron:0,   calcium:6,   magnesium:2,   zinc:0,   potassium:2,   omega3:0   },
+  { id:98,  name:'Cerveza',                 cat:'bebida', cal:43,  protein:0.5, carbs:3.6,  fat:0,   fiber:0,   icon:'🍺', vitC:0,   vitD:0,   vitB12:0.1, iron:0.1, calcium:5,   magnesium:7,   zinc:0.1, potassium:27,  omega3:0   },
+  { id:99,  name:'Vino tinto',              cat:'bebida', cal:85,  protein:0.1, carbs:2.6,  fat:0,   fiber:0,   icon:'🍷', vitC:0,   vitD:0,   vitB12:0,   iron:0.5, calcium:8,   magnesium:12,  zinc:0.1, potassium:127, omega3:0   },
+  { id:100, name:'Bebida energética',       cat:'bebida', cal:45,  protein:0,   carbs:11,   fat:0,   fiber:0,   icon:'⚡', vitC:0,   vitD:0,   vitB12:0.4, iron:0,   calcium:0,   magnesium:0,   zinc:0,   potassium:2,   omega3:0   },
+];
+
+// ===== RECETAS =====
+export const recetas = [
+  // ── DESAYUNOS ─────────────────────────────────────────
+  { id:1,  nombre:'Avena con frutas tropicales',      icono:'🌾', tipo:'desayuno', meta:['maintain','lose','gain'],   tiempo:10, dificultad:'Fácil',    cal:320, protein:12, carbs:58, fat:6,  fiber:7,   desc:'Desayuno energético con avena, plátano y guayaba. Alto en fibra y carbos de calidad.',        ingredientes:[{id:22,grams:60},{id:71,grams:80},{id:75,grams:50},{id:11,grams:150},{id:85,grams:10}] },
+  { id:2,  nombre:'Huevos revueltos con pimiento',    icono:'🍳', tipo:'desayuno', meta:['lose','maintain','gain'],   tiempo:10, dificultad:'Fácil',    cal:280, protein:22, carbs:8,  fat:18, fiber:2,   desc:'Proteínas de calidad con vegetales. Ideal para empezar el día con energía.',                  ingredientes:[{id:2,grams:150},{id:68,grams:80},{id:63,grams:60},{id:81,grams:10}] },
+  { id:3,  nombre:'Café con leche y tostadas',        icono:'☕', tipo:'desayuno', meta:['maintain','lose'],          tiempo:5,  dificultad:'Fácil',    cal:260, protein:10, carbs:38, fat:8,  fiber:2.5, desc:'Clásico desayuno cubano. Rápido y reconfortante para comenzar el día.',                       ingredientes:[{id:13,grams:200},{id:32,grams:60},{id:19,grams:10}] },
+  { id:4,  nombre:'Yogur griego con mango',           icono:'🫙', tipo:'desayuno', meta:['lose','maintain'],          tiempo:5,  dificultad:'Fácil',    cal:220, protein:18, carbs:28, fat:2,  fiber:2,   desc:'Alto en proteínas y bajo en calorías. Perfecto para bajar de peso sin pasar hambre.',           ingredientes:[{id:15,grams:200},{id:73,grams:100},{id:85,grams:10},{id:80,grams:15}] },
+  { id:5,  nombre:'Tortilla de espinaca',             icono:'🍳', tipo:'desayuno', meta:['gain','maintain'],          tiempo:15, dificultad:'Fácil',    cal:350, protein:24, carbs:10, fat:24, fiber:3,   desc:'Rica en hierro y proteínas. Ideal para ganar masa muscular.',                                   ingredientes:[{id:2,grams:200},{id:62,grams:80},{id:18,grams:40},{id:81,grams:10}] },
+
+  // ── ALMUERZOS ─────────────────────────────────────────
+  { id:6,  nombre:'Arroz con pollo cubano',           icono:'🍛', tipo:'almuerzo', meta:['maintain','gain'],          tiempo:40, dificultad:'Moderada', cal:480, protein:38, carbs:52, fat:10, fiber:3,   desc:'Plato típico cubano completo. Arroz, pollo y vegetales en un solo plato.',                     ingredientes:[{id:1,grams:200},{id:20,grams:150},{id:63,grams:80},{id:68,grams:60},{id:66,grams:50},{id:81,grams:10}] },
+  { id:7,  nombre:'Lentejas con arroz',               icono:'🫘', tipo:'almuerzo', meta:['maintain','lose','gain'],   tiempo:30, dificultad:'Fácil',    cal:390, protein:22, carbs:65, fat:4,  fiber:14,  desc:'Combinación perfecta de proteína vegetal y carbos. Alta en fibra y hierro.',                   ingredientes:[{id:36,grams:200},{id:20,grams:100},{id:64,grams:80},{id:66,grams:50},{id:81,grams:10}] },
+  { id:8,  nombre:'Moros y Cristianos saludable',     icono:'🍚', tipo:'almuerzo', meta:['maintain','gain'],          tiempo:35, dificultad:'Moderada', cal:420, protein:18, carbs:72, fat:5,  fiber:12,  desc:'Clásico cubano con arroz y frijoles negros. Combinación completa de aminoácidos.',              ingredientes:[{id:20,grams:150},{id:34,grams:150},{id:66,grams:50},{id:68,grams:60},{id:81,grams:10}] },
+  { id:9,  nombre:'Milanesa de pollo con ensalada',   icono:'🍗', tipo:'almuerzo', meta:['lose','maintain'],          tiempo:25, dificultad:'Moderada', cal:380, protein:42, carbs:20, fat:14, fiber:3,   desc:'Alta en proteínas y moderada en calorías. Clásico uruguayo aligerado.',                         ingredientes:[{id:1,grams:200},{id:65,grams:80},{id:63,grams:80},{id:23,grams:30},{id:81,grams:10}] },
+  { id:10, nombre:'Sopa de pollo con verduras',       icono:'🍜', tipo:'almuerzo', meta:['lose','maintain'],          tiempo:40, dificultad:'Fácil',    cal:280, protein:28, carbs:22, fat:7,  fiber:4,   desc:'Baja en calorías y muy saciante. Ideal para días de déficit calórico.',                         ingredientes:[{id:7,grams:150},{id:64,grams:80},{id:66,grams:50},{id:27,grams:100},{id:62,grams:50}] },
+  { id:11, nombre:'Ensalada de atún con aguacate',    icono:'🥑', tipo:'almuerzo', meta:['lose','maintain'],          tiempo:10, dificultad:'Fácil',    cal:340, protein:32, carbs:12, fat:18, fiber:7,   desc:'Rica en omega-3 y grasas saludables. Rápida y muy nutritiva.',                                  ingredientes:[{id:3,grams:150},{id:79,grams:100},{id:63,grams:80},{id:65,grams:60},{id:67,grams:60}] },
+  { id:12, nombre:'Potaje de frijoles colorados',     icono:'🍲', tipo:'almuerzo', meta:['maintain','gain'],          tiempo:45, dificultad:'Moderada', cal:360, protein:18, carbs:55, fat:6,  fiber:14,  desc:'Clásico cubano reconfortante. Alto en fibra y proteína vegetal.',                               ingredientes:[{id:35,grams:200},{id:27,grams:100},{id:66,grams:50},{id:68,grams:60},{id:81,grams:10}] },
+
+  // ── CENAS ─────────────────────────────────────────────
+  { id:13, nombre:'Salmón con boniato',               icono:'🐠', tipo:'cena',     meta:['lose','maintain','gain'],   tiempo:25, dificultad:'Fácil',    cal:420, protein:36, carbs:32, fat:16, fiber:4,   desc:'Rico en omega-3 y vitamina D. Cena completa y antiinflamatoria.',                               ingredientes:[{id:4,grams:180},{id:29,grams:150},{id:61,grams:100},{id:81,grams:10}] },
+  { id:14, nombre:'Ropa vieja con yuca',              icono:'🍲', tipo:'cena',     meta:['maintain','gain'],          tiempo:50, dificultad:'Difícil',  cal:480, protein:34, carbs:42, fat:16, fiber:4,   desc:'Plato emblemático cubano. Proteínas de res desmenuzada con yuca hervida.',                      ingredientes:[{id:5,grams:200},{id:30,grams:150},{id:63,grams:80},{id:68,grams:60},{id:66,grams:50}] },
+  { id:15, nombre:'Churrasco con ensalada',           icono:'🥩', tipo:'cena',     meta:['maintain','gain'],          tiempo:20, dificultad:'Fácil',    cal:440, protein:46, carbs:10, fat:24, fiber:3,   desc:'Clásico uruguayo. Alto en proteínas y zinc. Acompañado de ensalada fresca.',                    ingredientes:[{id:5,grams:200},{id:65,grams:80},{id:63,grams:80},{id:67,grams:60},{id:81,grams:15}] },
+  { id:16, nombre:'Pasta con atún y tomate',          icono:'🍝', tipo:'cena',     meta:['gain','maintain'],          tiempo:20, dificultad:'Fácil',    cal:450, protein:32, carbs:56, fat:8,  fiber:4,   desc:'Pasta con proteína magra. Ideal post-entrenamiento para recuperación muscular.',                 ingredientes:[{id:25,grams:200},{id:3,grams:120},{id:63,grams:100},{id:66,grams:40},{id:81,grams:10}] },
+  { id:17, nombre:'Picadillo a la criolla con arroz', icono:'🍲', tipo:'cena',     meta:['maintain','gain'],          tiempo:30, dificultad:'Moderada', cal:520, protein:36, carbs:48, fat:16, fiber:4,   desc:'Carne molida con sofrito cubano y arroz. Completo y reconfortante.',                            ingredientes:[{id:5,grams:180},{id:20,grams:120},{id:63,grams:80},{id:68,grams:60},{id:66,grams:50}] },
+  { id:18, nombre:'Sardinas con papa y ensalada',     icono:'🐟', tipo:'cena',     meta:['lose','maintain'],          tiempo:15, dificultad:'Fácil',    cal:360, protein:30, carbs:28, fat:14, fiber:3,   desc:'Rica en omega-3 y calcio. Económica y muy nutritiva.',                                          ingredientes:[{id:10,grams:120},{id:27,grams:120},{id:65,grams:60},{id:63,grams:60}] },
+
+  // ── SNACKS ────────────────────────────────────────────
+  { id:19, nombre:'Aguacate con galletas',            icono:'🥑', tipo:'snack',    meta:['maintain','gain'],          tiempo:5,  dificultad:'Fácil',    cal:280, protein:5,  carbs:22, fat:20, fiber:9,   desc:'Snack saciante con grasas saludables. Ideal entre comidas.',                                    ingredientes:[{id:79,grams:100},{id:33,grams:40},{id:63,grams:50}] },
+  { id:20, nombre:'Frutas tropicales con yogur',      icono:'🍓', tipo:'snack',    meta:['lose','maintain'],          tiempo:5,  dificultad:'Fácil',    cal:180, protein:10, carbs:30, fat:1,  fiber:4,   desc:'Snack ligero y alto en vitamina C. Perfecto para media mañana.',                                ingredientes:[{id:15,grams:120},{id:74,grams:80},{id:77,grams:60},{id:76,grams:60}] },
 ];
 
 // ===== EJERCICIOS CALISTENIA =====
 export const calisteniaExercises = [
-  {
-    id: 1, name: 'Flexiones', nameEn: 'Push-ups',
-    muscleGroup: 'pecho', level: 'principiante',
-    calPerMinute: 7, sets: '3x10', restSec: 60,
-    icon: 'bi-person-arms-up',
-    description: 'Empuje del tren superior básico. Manos a la anchura de los hombros.',
-    variations: ['Flexiones inclinadas', 'Flexiones en diamante', 'Flexiones explosivas'],
-    tips: 'Mantén el core apretado y la espalda recta durante todo el movimiento.'
-  },
-  {
-    id: 2, name: 'Sentadillas', nameEn: 'Squats',
-    muscleGroup: 'piernas', level: 'principiante',
-    calPerMinute: 8, sets: '3x15', restSec: 60,
-    icon: 'bi-person',
-    description: 'Ejercicio rey del tren inferior. Rodillas no sobrepasar puntas de pies.',
-    variations: ['Sentadilla sumo', 'Pistol squat', 'Jump squat'],
-    tips: 'Baja hasta que los muslos estén paralelos al suelo.'
-  },
-  {
-    id: 3, name: 'Dominadas', nameEn: 'Pull-ups',
-    muscleGroup: 'espalda', level: 'intermedio',
-    calPerMinute: 10, sets: '3x6', restSec: 90,
-    icon: 'bi-person-raised-hand',
-    description: 'Empuje vertical del tren superior. Requiere barra.',
-    variations: ['Dominadas con agarre neutro', 'Dominadas australianas', 'Muscle-up'],
-    tips: 'Parte desde colgado muerto, sube el pecho hasta la barra.'
-  },
-  {
-    id: 4, name: 'Burpees', nameEn: 'Burpees',
-    muscleGroup: 'cuerpo completo', level: 'intermedio',
-    calPerMinute: 12, sets: '3x10', restSec: 90,
-    icon: 'bi-lightning',
-    description: 'Ejercicio metabólico de cuerpo completo de alta intensidad.',
-    variations: ['Burpee sin salto', 'Burpee con dominada', 'Half burpee'],
-    tips: 'Controla la respiración. Exhala al saltar, inhala al bajar.'
-  },
-  {
-    id: 5, name: 'Plancha', nameEn: 'Plank',
-    muscleGroup: 'core', level: 'principiante',
-    calPerMinute: 5, sets: '3x30s', restSec: 45,
-    icon: 'bi-align-middle',
-    description: 'Isométrico fundamental para estabilidad del core.',
-    variations: ['Plancha lateral', 'Plancha con toque', 'Plancha dinámica'],
-    tips: 'Contrae glúteos y abdomen. Caderas sin subir ni bajar.'
-  },
-  {
-    id: 6, name: 'Fondos en paralelas', nameEn: 'Dips',
-    muscleGroup: 'tríceps', level: 'intermedio',
-    calPerMinute: 8, sets: '3x8', restSec: 75,
-    icon: 'bi-arrow-down-circle',
-    description: 'Ejercicio de empuje para tríceps y pecho inferior.',
-    variations: ['Fondos en silla', 'Fondos con peso', 'Korean dips'],
-    tips: 'Inclina ligeramente el torso hacia adelante para activar más pecho.'
-  },
-  {
-    id: 7, name: 'Mountain Climbers', nameEn: 'Mountain Climbers',
-    muscleGroup: 'core', level: 'principiante',
-    calPerMinute: 11, sets: '3x20', restSec: 45,
-    icon: 'bi-activity',
-    description: 'Cardio + core. Posición de plancha con rodillas alternadas al pecho.',
-    variations: ['Lento y controlado', 'Cross mountain climbers', 'Sliding'],
-    tips: 'Mantén caderas bajas y ritmo constante.'
-  },
-  {
-    id: 8, name: 'Zancadas', nameEn: 'Lunges',
-    muscleGroup: 'piernas', level: 'principiante',
-    calPerMinute: 7, sets: '3x12', restSec: 60,
-    icon: 'bi-person-walking',
-    description: 'Trabajo unilateral de piernas y equilibrio.',
-    variations: ['Zancada inversa', 'Zancada lateral', 'Zancada con salto'],
-    tips: 'Rodilla delantera a 90°, rodilla trasera casi toca el suelo.'
-  },
-  {
-    id: 9, name: 'Pike Push-ups', nameEn: 'Pike Push-ups',
-    muscleGroup: 'hombros', level: 'principiante',
-    calPerMinute: 7, sets: '3x10', restSec: 60,
-    icon: 'bi-triangle',
-    description: 'Flexión en V invertida para trabajar los deltoides.',
-    variations: ['Elevated pike', 'Handstand push-up', 'Decline push-up'],
-    tips: 'Forma una V con el cuerpo, baja la cabeza entre las manos.'
-  },
-  {
-    id: 10, name: 'Saltos de tijera', nameEn: 'Jumping Jacks',
-    muscleGroup: 'cardio', level: 'principiante',
-    calPerMinute: 9, sets: '3x30', restSec: 30,
-    icon: 'bi-stars',
-    description: 'Cardio de bajo impacto para calentamiento o circuito.',
-    variations: ['Star jumps', 'Side-to-side', 'Cross jacks'],
-    tips: 'Aterrizaje suave, rodillas ligeramente flexionadas.'
-  },
-  {
-    id: 11, name: 'L-Sit', nameEn: 'L-Sit',
-    muscleGroup: 'core', level: 'avanzado',
-    calPerMinute: 6, sets: '3x15s', restSec: 90,
-    icon: 'bi-layout-text-sidebar',
-    description: 'Isométrico avanzado de core y compresión.',
-    variations: ['Tucked L-sit', 'One-leg L-sit', 'Parallette L-sit'],
-    tips: 'Empieza con tucked (rodillas dobladas). Progresa gradualmente.'
-  },
-  {
-    id: 12, name: 'Pistol Squat', nameEn: 'Pistol Squat',
-    muscleGroup: 'piernas', level: 'avanzado',
-    calPerMinute: 9, sets: '3x5', restSec: 90,
-    icon: 'bi-chevron-double-down',
-    description: 'Sentadilla a una pierna. Máxima fuerza y equilibrio.',
-    variations: ['Asistido con TRX', 'Box pistol', 'Shrimp squat'],
-    tips: 'Trabaja primero la movilidad de tobillo y cadera.'
-  },
+  { id:1,  name:'Flexiones',          nameEn:'Push-ups',        muscleGroup:'pecho',          level:'principiante', calPerMinute:7,  sets:'3x10',  restSec:60, icon:'bi-person-arms-up',       description:'Empuje del tren superior básico. Manos a la anchura de los hombros.',          variations:['Flexiones inclinadas','Flexiones en diamante','Flexiones explosivas'],         tips:'Mantén el core apretado y la espalda recta durante todo el movimiento.' },
+  { id:2,  name:'Sentadillas',        nameEn:'Squats',           muscleGroup:'piernas',        level:'principiante', calPerMinute:8,  sets:'3x15',  restSec:60, icon:'bi-person',               description:'Ejercicio rey del tren inferior. Rodillas no sobrepasar puntas de pies.',      variations:['Sentadilla sumo','Pistol squat','Jump squat'],                                  tips:'Baja hasta que los muslos estén paralelos al suelo.' },
+  { id:3,  name:'Dominadas',          nameEn:'Pull-ups',         muscleGroup:'espalda',        level:'intermedio',   calPerMinute:10, sets:'3x6',   restSec:90, icon:'bi-person-raised-hand',   description:'Empuje vertical del tren superior. Requiere barra.',                           variations:['Dominadas con agarre neutro','Dominadas australianas','Muscle-up'],             tips:'Parte desde colgado muerto, sube el pecho hasta la barra.' },
+  { id:4,  name:'Burpees',            nameEn:'Burpees',          muscleGroup:'cuerpo completo',level:'intermedio',   calPerMinute:12, sets:'3x10',  restSec:90, icon:'bi-lightning',            description:'Ejercicio metabólico de cuerpo completo de alta intensidad.',                  variations:['Burpee sin salto','Burpee con dominada','Half burpee'],                         tips:'Controla la respiración. Exhala al saltar, inhala al bajar.' },
+  { id:5,  name:'Plancha',            nameEn:'Plank',            muscleGroup:'core',           level:'principiante', calPerMinute:5,  sets:'3x30s', restSec:45, icon:'bi-align-middle',         description:'Isométrico fundamental para estabilidad del core.',                            variations:['Plancha lateral','Plancha con toque','Plancha dinámica'],                       tips:'Contrae glúteos y abdomen. Caderas sin subir ni bajar.' },
+  { id:6,  name:'Fondos en paralelas',nameEn:'Dips',             muscleGroup:'tríceps',        level:'intermedio',   calPerMinute:8,  sets:'3x8',   restSec:75, icon:'bi-arrow-down-circle',    description:'Ejercicio de empuje para tríceps y pecho inferior.',                           variations:['Fondos en silla','Fondos con peso','Korean dips'],                              tips:'Inclina ligeramente el torso hacia adelante para activar más pecho.' },
+  { id:7,  name:'Mountain Climbers',  nameEn:'Mountain Climbers',muscleGroup:'core',           level:'principiante', calPerMinute:11, sets:'3x20',  restSec:45, icon:'bi-activity',             description:'Cardio + core. Posición de plancha con rodillas alternadas al pecho.',         variations:['Lento y controlado','Cross mountain climbers','Sliding'],                       tips:'Mantén caderas bajas y ritmo constante.' },
+  { id:8,  name:'Zancadas',           nameEn:'Lunges',           muscleGroup:'piernas',        level:'principiante', calPerMinute:7,  sets:'3x12',  restSec:60, icon:'bi-person-walking',       description:'Trabajo unilateral de piernas y equilibrio.',                                  variations:['Zancada inversa','Zancada lateral','Zancada con salto'],                        tips:'Rodilla delantera a 90°, rodilla trasera casi toca el suelo.' },
+  { id:9,  name:'Pike Push-ups',      nameEn:'Pike Push-ups',    muscleGroup:'hombros',        level:'principiante', calPerMinute:7,  sets:'3x10',  restSec:60, icon:'bi-triangle',             description:'Flexión en V invertida para trabajar los deltoides.',                          variations:['Elevated pike','Handstand push-up','Decline push-up'],                          tips:'Forma una V con el cuerpo, baja la cabeza entre las manos.' },
+  { id:10, name:'Saltos de tijera',   nameEn:'Jumping Jacks',    muscleGroup:'cardio',         level:'principiante', calPerMinute:9,  sets:'3x30',  restSec:30, icon:'bi-stars',                description:'Cardio de bajo impacto para calentamiento o circuito.',                        variations:['Star jumps','Side-to-side','Cross jacks'],                                      tips:'Aterrizaje suave, rodillas ligeramente flexionadas.' },
+  { id:11, name:'L-Sit',              nameEn:'L-Sit',            muscleGroup:'core',           level:'avanzado',     calPerMinute:6,  sets:'3x15s', restSec:90, icon:'bi-layout-text-sidebar',  description:'Isométrico avanzado de core y compresión.',                                    variations:['Tucked L-sit','One-leg L-sit','Parallette L-sit'],                              tips:'Empieza con tucked (rodillas dobladas). Progresa gradualmente.' },
+  { id:12, name:'Pistol Squat',       nameEn:'Pistol Squat',     muscleGroup:'piernas',        level:'avanzado',     calPerMinute:9,  sets:'3x5',   restSec:90, icon:'bi-chevron-double-down',  description:'Sentadilla a una pierna. Máxima fuerza y equilibrio.',                         variations:['Asistido con TRX','Box pistol','Shrimp squat'],                                 tips:'Trabaja primero la movilidad de tobillo y cadera.' },
 ];
 
-// ===== METAS DE MICRONUTRIENTES DIARIOS (valores recomendados) =====
+// ===== METAS DE MICRONUTRIENTES DIARIOS =====
 export const micronutrientGoals = {
-  vitaminC: { name: 'Vitamina C', unit: 'mg', goal: 90, icon: 'bi-brightness-high' },
-  vitaminD: { name: 'Vitamina D', unit: 'UI', goal: 600, icon: 'bi-sun' },
-  vitaminB12: { name: 'Vitamina B12', unit: 'mcg', goal: 2.4, icon: 'bi-capsule' },
-  iron: { name: 'Hierro', unit: 'mg', goal: 18, icon: 'bi-droplet-fill' },
-  calcium: { name: 'Calcio', unit: 'mg', goal: 1000, icon: 'bi-gem' },
-  magnesium: { name: 'Magnesio', unit: 'mg', goal: 400, icon: 'bi-lightning-charge' },
-  zinc: { name: 'Zinc', unit: 'mg', goal: 11, icon: 'bi-shield-check' },
-  potassium: { name: 'Potasio', unit: 'mg', goal: 3500, icon: 'bi-heart-pulse' },
-  sodium: { name: 'Sodio', unit: 'mg', goal: 2300, icon: 'bi-moisture' },
-  omega3: { name: 'Omega-3', unit: 'mg', goal: 1600, icon: 'bi-water' },
-  fiber: { name: 'Fibra', unit: 'g', goal: 28, icon: 'bi-tree' },
+  vitaminC:   { name:'Vitamina C',   unit:'mg',  goal:90,   icon:'bi-brightness-high'  },
+  vitaminD:   { name:'Vitamina D',   unit:'UI',  goal:600,  icon:'bi-sun'              },
+  vitaminB12: { name:'Vitamina B12', unit:'mcg', goal:2.4,  icon:'bi-capsule'          },
+  iron:       { name:'Hierro',       unit:'mg',  goal:18,   icon:'bi-droplet-fill'     },
+  calcium:    { name:'Calcio',       unit:'mg',  goal:1000, icon:'bi-gem'              },
+  magnesium:  { name:'Magnesio',     unit:'mg',  goal:400,  icon:'bi-lightning-charge' },
+  zinc:       { name:'Zinc',         unit:'mg',  goal:11,   icon:'bi-shield-check'     },
+  potassium:  { name:'Potasio',      unit:'mg',  goal:3500, icon:'bi-heart-pulse'      },
+  sodium:     { name:'Sodio',        unit:'mg',  goal:2300, icon:'bi-moisture'         },
+  omega3:     { name:'Omega-3',      unit:'mg',  goal:1600, icon:'bi-water'            },
+  fiber:      { name:'Fibra',        unit:'g',   goal:28,   icon:'bi-tree'             },
 };
 
 // ===== NIVELES DE ACTIVIDAD =====
 export const activityLevels = [
-  { value: 1.2, label: 'Sedentario', desc: 'Poco o nada de ejercicio', icon: 'bi-laptop' },
-  { value: 1.375, label: 'Ligero', desc: '1-3 días/semana', icon: 'bi-bicycle' },
-  { value: 1.55, label: 'Moderado', desc: '3-5 días/semana', icon: 'bi-person-running' },
-  { value: 1.725, label: 'Activo', desc: '6-7 días/semana', icon: 'bi-fire' },
-  { value: 1.9, label: 'Muy activo', desc: 'Atleta / trabajo físico', icon: 'bi-trophy' },
+  { value:1.2,   label:'Sedentario', desc:'Poco o nada de ejercicio', icon:'bi-laptop'        },
+  { value:1.375, label:'Ligero',     desc:'1-3 días/semana',          icon:'bi-bicycle'       },
+  { value:1.55,  label:'Moderado',   desc:'3-5 días/semana',          icon:'bi-person-running'},
+  { value:1.725, label:'Activo',     desc:'6-7 días/semana',          icon:'bi-fire'          },
+  { value:1.9,   label:'Muy activo', desc:'Atleta / trabajo físico',  icon:'bi-trophy'        },
 ];
 
 // ===== TIPOS DE DIETA =====
 export const dietTypes = [
-  { value: 'balanced', label: 'Balanceada', protein: 30, carbs: 40, fat: 30 },
-  { value: 'keto', label: 'Keto', protein: 25, carbs: 5, fat: 70 },
-  { value: 'lowcarb', label: 'Low Carb', protein: 35, carbs: 20, fat: 45 },
-  { value: 'highprotein', label: 'Alta Proteína', protein: 45, carbs: 35, fat: 20 },
-  { value: 'vegan', label: 'Vegana', protein: 20, carbs: 55, fat: 25 },
-  { value: 'mediterranean', label: 'Mediterránea', protein: 20, carbs: 50, fat: 30 },
+  { value:'balanced',     label:'Balanceada',    protein:30, carbs:40, fat:30 },
+  { value:'keto',         label:'Keto',          protein:25, carbs:5,  fat:70 },
+  { value:'lowcarb',      label:'Low Carb',      protein:35, carbs:20, fat:45 },
+  { value:'highprotein',  label:'Alta Proteína', protein:45, carbs:35, fat:20 },
+  { value:'vegan',        label:'Vegana',        protein:20, carbs:55, fat:25 },
+  { value:'mediterranean',label:'Mediterránea',  protein:20, carbs:50, fat:30 },
 ];
-
-
-
-
-
-
-
-
-
