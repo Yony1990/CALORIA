@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { foodDatabase } from '../../data/database';
+import { foodDatabase, recetas as RECETAS } from '../../data/database';
 import './PlanSemanal.css';
 
 const DIAS = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
@@ -12,29 +12,6 @@ const COMIDAS = [
 
 const MEAL_MAP = { desayuno: 'breakfast', almuerzo: 'lunch', cena: 'dinner', snack: 'snacks' };
 
-// ── Recetas inline ─────────────────────────────────────
-const RECETAS = [
-  { id:1,  nombre:'Avena con frutas tropicales',      icono:'🌾', tipo:'desayuno', cal:320, protein:12, carbs:58, fat:6,  fiber:7,  ingredientes:[{id:22,grams:60},{id:71,grams:80},{id:75,grams:50},{id:11,grams:150},{id:85,grams:10}] },
-  { id:2,  nombre:'Huevos revueltos con pimiento',    icono:'🍳', tipo:'desayuno', cal:280, protein:22, carbs:8,  fat:18, fiber:2,  ingredientes:[{id:2,grams:150},{id:68,grams:80},{id:63,grams:60},{id:81,grams:10}] },
-  { id:3,  nombre:'Café con leche y tostadas',        icono:'☕', tipo:'desayuno', cal:260, protein:10, carbs:38, fat:8,  fiber:2.5,ingredientes:[{id:13,grams:200},{id:32,grams:60},{id:19,grams:10}] },
-  { id:4,  nombre:'Yogur griego con mango',           icono:'🫙', tipo:'desayuno', cal:220, protein:18, carbs:28, fat:2,  fiber:2,  ingredientes:[{id:15,grams:200},{id:73,grams:100},{id:85,grams:10},{id:80,grams:15}] },
-  { id:5,  nombre:'Tortilla de espinaca',             icono:'🍳', tipo:'desayuno', cal:350, protein:24, carbs:10, fat:24, fiber:3,  ingredientes:[{id:2,grams:200},{id:62,grams:80},{id:18,grams:40},{id:81,grams:10}] },
-  { id:6,  nombre:'Arroz con pollo cubano',           icono:'🍛', tipo:'almuerzo', cal:480, protein:38, carbs:52, fat:10, fiber:3,  ingredientes:[{id:1,grams:200},{id:20,grams:150},{id:63,grams:80},{id:68,grams:60},{id:66,grams:50},{id:81,grams:10}] },
-  { id:7,  nombre:'Lentejas con arroz',               icono:'🫘', tipo:'almuerzo', cal:390, protein:22, carbs:65, fat:4,  fiber:14, ingredientes:[{id:36,grams:200},{id:20,grams:100},{id:64,grams:80},{id:66,grams:50},{id:81,grams:10}] },
-  { id:8,  nombre:'Moros y Cristianos saludable',     icono:'🍚', tipo:'almuerzo', cal:420, protein:18, carbs:72, fat:5,  fiber:12, ingredientes:[{id:20,grams:150},{id:34,grams:150},{id:66,grams:50},{id:68,grams:60},{id:81,grams:10}] },
-  { id:9,  nombre:'Milanesa de pollo con ensalada',   icono:'🍗', tipo:'almuerzo', cal:380, protein:42, carbs:20, fat:14, fiber:3,  ingredientes:[{id:1,grams:200},{id:65,grams:80},{id:63,grams:80},{id:23,grams:30},{id:81,grams:10}] },
-  { id:10, nombre:'Sopa de pollo con verduras',       icono:'🍜', tipo:'almuerzo', cal:280, protein:28, carbs:22, fat:7,  fiber:4,  ingredientes:[{id:7,grams:150},{id:64,grams:80},{id:66,grams:50},{id:27,grams:100},{id:62,grams:50}] },
-  { id:11, nombre:'Ensalada de atún con aguacate',    icono:'🥑', tipo:'almuerzo', cal:340, protein:32, carbs:12, fat:18, fiber:7,  ingredientes:[{id:3,grams:150},{id:79,grams:100},{id:63,grams:80},{id:65,grams:60},{id:67,grams:60}] },
-  { id:12, nombre:'Potaje de frijoles colorados',     icono:'🍲', tipo:'almuerzo', cal:360, protein:18, carbs:55, fat:6,  fiber:14, ingredientes:[{id:35,grams:200},{id:27,grams:100},{id:66,grams:50},{id:68,grams:60},{id:81,grams:10}] },
-  { id:13, nombre:'Salmón con boniato',               icono:'🐠', tipo:'cena',     cal:420, protein:36, carbs:32, fat:16, fiber:4,  ingredientes:[{id:4,grams:180},{id:29,grams:150},{id:61,grams:100},{id:81,grams:10}] },
-  { id:14, nombre:'Ropa vieja con yuca',              icono:'🍲', tipo:'cena',     cal:480, protein:34, carbs:42, fat:16, fiber:4,  ingredientes:[{id:5,grams:200},{id:30,grams:150},{id:63,grams:80},{id:68,grams:60},{id:66,grams:50}] },
-  { id:15, nombre:'Churrasco con ensalada',           icono:'🥩', tipo:'cena',     cal:440, protein:46, carbs:10, fat:24, fiber:3,  ingredientes:[{id:5,grams:200},{id:65,grams:80},{id:63,grams:80},{id:67,grams:60},{id:81,grams:15}] },
-  { id:16, nombre:'Pasta con atún y tomate',          icono:'🍝', tipo:'cena',     cal:450, protein:32, carbs:56, fat:8,  fiber:4,  ingredientes:[{id:25,grams:200},{id:3,grams:120},{id:63,grams:100},{id:66,grams:40},{id:81,grams:10}] },
-  { id:17, nombre:'Picadillo a la criolla con arroz', icono:'🍲', tipo:'cena',     cal:520, protein:36, carbs:48, fat:16, fiber:4,  ingredientes:[{id:5,grams:180},{id:20,grams:120},{id:63,grams:80},{id:68,grams:60},{id:66,grams:50}] },
-  { id:18, nombre:'Sardinas con papa y ensalada',     icono:'🐟', tipo:'cena',     cal:360, protein:30, carbs:28, fat:14, fiber:3,  ingredientes:[{id:10,grams:120},{id:27,grams:120},{id:65,grams:60},{id:63,grams:60}] },
-  { id:19, nombre:'Aguacate con galletas',            icono:'🥑', tipo:'snack',    cal:280, protein:5,  carbs:22, fat:20, fiber:9,  ingredientes:[{id:79,grams:100},{id:33,grams:40},{id:63,grams:50}] },
-  { id:20, nombre:'Frutas tropicales con yogur',      icono:'🍓', tipo:'snack',    cal:180, protein:10, carbs:30, fat:1,  fiber:4,  ingredientes:[{id:15,grams:120},{id:74,grams:80},{id:77,grams:60},{id:76,grams:60}] },
-];
 
 const defaultPlan = () => {
   const plan = {};
@@ -116,15 +93,45 @@ export default function PlanSemanal({ appState }) {
     savePlan(newPlan);
   };
 
+  // const enviarDiario = (dia) => {
+  //   const comidas = plan[dia];
+  //   let agregados = 0;
+  //   COMIDAS.forEach(c => {
+  //     const item = comidas[c.id];
+  //     if (!item) return;
+  //     addMealItem(MEAL_MAP[c.id], { ...item, grams: item.grams || 100 });
+  //     agregados++;
+  //   });
+  //   if (agregados > 0) {
+  //     setEnviado(prev => ({ ...prev, [dia]: true }));
+  //     setTimeout(() => setEnviado(prev => ({ ...prev, [dia]: false })), 3000);
+  //   }
+  // };
   const enviarDiario = (dia) => {
     const comidas = plan[dia];
     let agregados = 0;
     COMIDAS.forEach(c => {
       const item = comidas[c.id];
       if (!item) return;
-      addMealItem(MEAL_MAP[c.id], { ...item, grams: item.grams || 100 });
+
+      if (item.esReceta) {
+        const recetaCompleta = recetas.find(r => r.id === item.id);
+        if (!recetaCompleta) return;
+        recetaCompleta.ingredientes.forEach(ing => {
+          const food = foodDatabase.find(f => f.id === ing.id);
+          if (!food) return;
+          addMealItem(MEAL_MAP[c.id], {
+            ...food,
+            grams: ing.grams,
+            name: `${food.name} (${recetaCompleta.nombre})`,
+          });
+        });
+      } else {
+        addMealItem(MEAL_MAP[c.id], { ...item, grams: item.grams || 100 });
+      }
       agregados++;
     });
+
     if (agregados > 0) {
       setEnviado(prev => ({ ...prev, [dia]: true }));
       setTimeout(() => setEnviado(prev => ({ ...prev, [dia]: false })), 3000);

@@ -13,8 +13,10 @@ const navItemsPrimary = [
 const navItemsSecondary = [
   { id: 'tracking',    icon: 'bi-graph-up-arrow', label: 'Progreso'    },
   { id: 'recetas',     icon: 'bi-book',           label: 'Recetas'     },
-  { id: 'calculadora', icon: 'bi-calculator',     label: 'Calculadora' },
   { id: 'plan',        icon: 'bi-calendar-week',  label: 'Plan'        },
+  { id: 'lista',       icon: 'bi-cart3',          label: 'Compras'     },
+  { id: 'ayuno',       icon: 'bi-clock-history',  label: 'Ayuno'       },
+  { id: 'calculadora', icon: 'bi-calculator',     label: 'Calculadora' },
 ];
 
 const slogans = {

@@ -1,0 +1,254 @@
+.lista-page {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.lista-header-badges {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-reset-lista {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 12px;
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-reset-lista:hover {
+  border-color: var(--accent-orange);
+  color: var(--accent-orange);
+}
+
+/* ── Progreso ─────────────────────────────────────── */
+.lista-progress {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.lista-progress-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.lista-progress-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.lista-progress-nums {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.lista-progress-track {
+  width: 100%;
+  height: 6px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.lista-progress-fill {
+  height: 100%;
+  background: var(--accent-green);
+  border-radius: 3px;
+  box-shadow: 0 0 8px var(--accent-green);
+  transition: width 0.4s ease;
+}
+
+/* ── Filtro días ──────────────────────────────────── */
+.lista-dias-scroll {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: none;
+}
+
+.lista-dias-scroll::-webkit-scrollbar { display: none; }
+
+.lista-dia-btn {
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 12px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.lista-dia-btn:hover { border-color: var(--accent-green); color: var(--accent-green); }
+
+.lista-dia-btn.active {
+  background: var(--accent-green-dim);
+  border-color: var(--accent-green);
+  color: var(--accent-green);
+}
+
+/* ── Empty ────────────────────────────────────────── */
+.lista-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 60px 20px;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+.lista-empty i    { font-size: 48px; }
+.lista-empty h3   { font-size: 18px; font-weight: 700; color: var(--text-secondary); }
+.lista-empty p    { font-size: 13px; max-width: 360px; line-height: 1.6; }
+
+/* ── Grupos ───────────────────────────────────────── */
+.lista-grupos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 14px;
+}
+
+.lista-grupo { padding: 16px; }
+
+.lista-grupo-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.lista-grupo-titulo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.lista-grupo-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  flex-shrink: 0;
+}
+
+.lista-grupo-nombre {
+  font-size: 14px;
+  font-weight: 700;
+  font-family: var(--font-display);
+  color: var(--text-primary);
+}
+
+.lista-grupo-count {
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* ── Items ────────────────────────────────────────── */
+.lista-items {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.lista-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: var(--bg-hover);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s;
+  user-select: none;
+}
+
+.lista-item:hover { border-color: var(--accent-green); }
+
+.lista-item.checked {
+  opacity: 0.5;
+  background: rgba(255,255,255,0.02);
+}
+
+.lista-item-check {
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  border: 2px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 12px;
+  transition: all 0.2s;
+}
+
+.lista-item-check.checked {
+  background: var(--accent-green);
+  border-color: var(--accent-green);
+  color: #0a0e17;
+}
+
+.lista-item-icon { font-size: 20px; flex-shrink: 0; }
+
+.lista-item-info { flex: 1; min-width: 0; }
+
+.lista-item-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.lista-item.checked .lista-item-name {
+  text-decoration: line-through;
+  color: var(--text-muted);
+}
+
+.lista-item-dias {
+  font-size: 10px;
+  color: var(--text-muted);
+  display: block;
+  margin-top: 2px;
+}
+
+.lista-item-grams {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--accent-green);
+  flex-shrink: 0;
+}
+
+/* ── Responsive ───────────────────────────────────── */
+@media (max-width: 768px) {
+  .lista-page   { padding: 12px; }
+  .lista-grupos { grid-template-columns: 1fr; }
+}

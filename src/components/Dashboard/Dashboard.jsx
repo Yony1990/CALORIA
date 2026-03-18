@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { foodDatabase } from '../../data/database';
+import { foodDatabase, recetas } from '../../data/database';
 import './Dashboard.css';
 
 const DIAS_SEMANA = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
@@ -266,6 +266,12 @@ export default function Dashboard({ appState }) {
   // ── Sincronización automática con Plan Semanal ─────────
   useEffect(() => {
     const diaHoy = DIAS_SEMANA[new Date().getDay()];
+    const fechaHoy = new Date().toLocaleDateString('es-ES');
+    
+    // Si ya se cargó el plan hoy, no volver a cargar
+    const yaSeCargoHoy = localStorage.getItem('caloria_plan_cargado');
+    if (yaSeCargoHoy === fechaHoy) return;
+
     const planGuardado = localStorage.getItem('caloria_plan_semanal');
     if (!planGuardado) return;
 
@@ -283,8 +289,25 @@ export default function Dashboard({ appState }) {
 
     Object.entries(planHoy).forEach(([comida, item]) => {
       if (!item) return;
-      addMealItem(MEAL_MAP[comida], { ...item, grams: item.grams || 100 });
+      if (item.esReceta) {
+        const recetaCompleta = recetas.find(r => r.id === item.id);
+        if (!recetaCompleta) return;
+        recetaCompleta.ingredientes.forEach(ing => {
+          const food = foodDatabase.find(f => f.id === ing.id);
+          if (!food) return;
+          addMealItem(MEAL_MAP[comida], {
+            ...food,
+            grams: ing.grams,
+            name: `${food.name} (${recetaCompleta.nombre})`,
+          });
+        });
+      } else {
+        addMealItem(MEAL_MAP[comida], { ...item, grams: item.grams || 100 });
+      }
     });
+
+    // Marcar que ya se cargó hoy
+    localStorage.setItem('caloria_plan_cargado', fechaHoy);
   }, []);
 
   const targetCal = calculateTargetCalories();

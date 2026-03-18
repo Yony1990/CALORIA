@@ -10,6 +10,8 @@ import Metas from './components/Metas/Metas';
 import Recetas from './components/Recetas/Recetas';
 import Calculadora from './components/Calculadora/Calculadora';
 import PlanSemanal from './components/PlanSemanal/PlanSemanal';
+import ListaCompras from './components/ListaCompras/ListaCompras';
+import Ayuno from './components/Ayuno/Ayuno';
 import { useAppState } from './hooks/useAppState';
 import './styles/global.css';
 import './App.css';
@@ -29,8 +31,11 @@ export default function App() {
       case 'bienestar':  return <Bienestar appState={appState} />;
       case 'metas':      return <Metas appState={appState} />;
       case 'recetas':    return <Recetas appState={appState} />;
-      case 'calculadora': return <Calculadora appState={appState} />;
       case 'plan': return <PlanSemanal appState={appState} />;
+      case 'lista': return <ListaCompras appState={appState} />;
+      case 'ayuno': return <Ayuno appState={appState} />;
+      case 'calculadora': return <Calculadora appState={appState} />;
+      
       default:           return <Dashboard appState={appState} />;
     }
   };

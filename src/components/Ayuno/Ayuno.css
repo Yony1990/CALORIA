@@ -1,0 +1,302 @@
+.ayuno-page {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ── Protocolos ───────────────────────────────────── */
+.ayuno-protocolos { padding: 20px; }
+
+.protocolos-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.protocolo-wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.protocolo-btn {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--font-body);
+  transition: all 0.2s;
+  width: 100%;
+}
+
+.protocolo-btn:hover { border-color: var(--accent-green); }
+
+.protocolo-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.protocolo-top i  { font-size: 18px; }
+.protocolo-nivel  { font-size: 10px; font-weight: 600; }
+.protocolo-nombre { font-size: 20px; font-weight: 800; font-family: var(--font-display); }
+.protocolo-desc   { font-size: 11px; color: var(--text-muted); line-height: 1.4; }
+
+.protocolo-expand-hint {
+  display: flex;
+  justify-content: center;
+  margin-top: 6px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* Accordion detalle */
+.protocolo-detalle {
+  border: 1px solid;
+  border-top: none;
+  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+  padding: 14px;
+  background: rgba(255,255,255,0.02);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  animation: slideDown 0.25s ease;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+.protocolo-detalle-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.protocolo-detalle-row i { font-size: 16px; margin-top: 2px; flex-shrink: 0; }
+
+.pd-label {
+  display: block;
+  font-size: 10px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 2px;
+}
+
+.pd-val {
+  display: block;
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.protocolo-beneficios { display: flex; flex-direction: column; gap: 8px; }
+
+.beneficios-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.beneficio-tag {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+/* ── Timer card ───────────────────────────────────── */
+.ayuno-timer-card { padding: 24px; }
+
+.ayuno-timer-wrap {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.ayuno-ring-wrap { position: relative; flex-shrink: 0; }
+
+.ayuno-ring-inner {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+}
+
+.ayuno-fase-icon  { font-size: 28px; }
+.ayuno-tiempo     { font-size: 28px; font-weight: 800; font-family: var(--font-display); line-height: 1; }
+.ayuno-fase-nombre{ font-size: 12px; font-weight: 600; }
+.ayuno-pct        { font-size: 11px; color: var(--text-muted); }
+.ayuno-idle-icon  { font-size: 36px; color: var(--text-muted); }
+.ayuno-idle-text  { font-size: 13px; color: var(--text-muted); text-align: center; line-height: 1.4; }
+
+.ayuno-timer-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ayuno-info-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  background: var(--bg-hover);
+  border-radius: var(--radius-sm);
+}
+
+.ayuno-info-label { font-size: 12px; color: var(--text-muted); }
+.ayuno-info-val   { font-size: 14px; font-weight: 700; font-family: var(--font-display); }
+
+.ayuno-fase-desc {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  padding: 0 2px;
+}
+
+.ayuno-btn {
+  padding: 12px;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  border: none;
+  font-family: var(--font-body);
+  transition: all 0.2s;
+  margin-top: 4px;
+}
+
+.ayuno-btn-start { background: var(--accent-green); color: #0a0e17; }
+.ayuno-btn-start:hover { filter: brightness(1.1); }
+.ayuno-btn-stop  { background: rgba(255,68,68,0.15); color: #ff4444; border: 1px solid rgba(255,68,68,0.3); }
+.ayuno-btn-stop:hover  { background: rgba(255,68,68,0.25); }
+
+/* ── Fases ────────────────────────────────────────── */
+.ayuno-fases-card { padding: 20px; }
+
+.fases-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.fase-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  transition: all 0.3s;
+}
+
+.fase-item.activa { background: rgba(255,255,255,0.04); border-color: var(--border); }
+.fase-item.pasada { opacity: 0.5; }
+
+.fase-icon-wrap {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.fase-info { flex: 1; }
+
+.fase-nombre {
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 2px;
+}
+
+.fase-activa-badge {
+  font-size: 10px;
+  color: var(--accent-green);
+  font-weight: 600;
+  animation: pulse-text 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse-text {
+  0%, 100% { opacity: 1;   }
+  50%       { opacity: 0.4; }
+}
+
+.fase-pasada-badge { font-size: 11px; color: var(--accent-green); }
+.fase-horas { font-size: 11px; color: var(--text-muted); display: block; margin-bottom: 2px; }
+.fase-desc  { font-size: 11px; color: var(--text-muted); line-height: 1.4; }
+
+/* ── Historial ────────────────────────────────────── */
+.ayuno-historial-card { padding: 20px; }
+
+.historial-ayuno-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.historial-ayuno-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: var(--bg-hover);
+  border-radius: var(--radius-sm);
+}
+
+.historial-ayuno-fecha { display: flex; flex-direction: column; gap: 2px; }
+.ha-fecha     { font-size: 13px; font-weight: 600; color: var(--text-primary); }
+.ha-protocolo { font-size: 11px; color: var(--text-muted); }
+
+.historial-ayuno-resultado { display: flex; align-items: center; gap: 10px; }
+.ha-horas { font-size: 16px; font-weight: 800; font-family: var(--font-display); color: var(--accent-green); }
+
+.ha-badge {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 20px;
+}
+
+.ha-badge.completado { background: rgba(0,229,160,0.12);  color: var(--accent-green);  border: 1px solid rgba(0,229,160,0.2);  }
+.ha-badge.parcial    { background: rgba(255,214,10,0.12);  color: var(--accent-yellow); border: 1px solid rgba(255,214,10,0.2);  }
+
+/* ── Responsive ───────────────────────────────────── */
+@media (max-width: 768px) {
+  .ayuno-page       { padding: 12px; }
+  .protocolos-grid  { grid-template-columns: repeat(2, 1fr); }
+  .ayuno-timer-wrap { flex-direction: column; align-items: center; }
+  .ayuno-timer-info { width: 100%; }
+}
+
+@media (max-width: 480px) {
+  .protocolos-grid { grid-template-columns: 1fr; }
+}
