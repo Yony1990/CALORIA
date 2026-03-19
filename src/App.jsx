@@ -12,6 +12,7 @@ import Calculadora from './components/Calculadora/Calculadora';
 import PlanSemanal from './components/PlanSemanal/PlanSemanal';
 import ListaCompras from './components/ListaCompras/ListaCompras';
 import Ayuno from './components/Ayuno/Ayuno';
+import Intro from './components/Intro/index';
 import { useAppState } from './hooks/useAppState';
 import './styles/global.css';
 import './App.css';
@@ -21,22 +22,32 @@ export default function App() {
   const appState = useAppState();
   const { profile, saveProfile } = appState;
 
+  const onboardingDone = !!localStorage.getItem('caloria_onboarding_done') && !!profile.name;
+
+  const handleOnboardingComplete = (datosProfile) => {
+    saveProfile(datosProfile);
+    localStorage.setItem('caloria_onboarding_done', 'true');
+  };
+
+  if (!onboardingDone) {
+    return <Intro onComplete={handleOnboardingComplete} />;
+  }
+
   const renderPage = () => {
     switch (activePage) {
-      case 'dashboard':  return <Dashboard appState={appState} />;
-      case 'nutrition':  return <Nutrition appState={appState} />;
-      case 'calistenia': return <Calistenia appState={appState} />;
-      case 'tracking':   return <Tracking appState={appState} />;
-      case 'profile':    return <Profile appState={appState} />;
-      case 'bienestar':  return <Bienestar appState={appState} />;
-      case 'metas':      return <Metas appState={appState} />;
-      case 'recetas':    return <Recetas appState={appState} />;
-      case 'plan': return <PlanSemanal appState={appState} />;
-      case 'lista': return <ListaCompras appState={appState} />;
-      case 'ayuno': return <Ayuno appState={appState} />;
-      case 'calculadora': return <Calculadora appState={appState} />;
-      
-      default:           return <Dashboard appState={appState} />;
+      case 'dashboard':   return <Dashboard    appState={appState} />;
+      case 'nutrition':   return <Nutrition    appState={appState} />;
+      case 'calistenia':  return <Calistenia   appState={appState} />;
+      case 'tracking':    return <Tracking     appState={appState} />;
+      case 'profile':     return <Profile      appState={appState} />;
+      case 'bienestar':   return <Bienestar    appState={appState} />;
+      case 'metas':       return <Metas        appState={appState} />;
+      case 'recetas':     return <Recetas      appState={appState} />;
+      case 'plan':        return <PlanSemanal  appState={appState} />;
+      case 'lista':       return <ListaCompras appState={appState} />;
+      case 'calculadora': return <Calculadora  appState={appState} />;
+      case 'ayuno':       return <Ayuno        appState={appState} />;
+      default:            return <Dashboard    appState={appState} />;
     }
   };
 
