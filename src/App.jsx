@@ -26,10 +26,15 @@ export default function App() {
     () => !!localStorage.getItem('caloria_onboarding_done') && !!profile.name
   );
 
+  // ← useEffect SIEMPRE antes de cualquier return condicional
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, [activePage]);
+
   const handleOnboardingComplete = (datosProfile) => {
     saveProfile(datosProfile);
     localStorage.setItem('caloria_onboarding_done', 'true');
-    setOnboardingDone(true); 
+    setOnboardingDone(true);
   };
 
   if (!onboardingDone) {
@@ -53,10 +58,6 @@ export default function App() {
       default:            return <Dashboard    appState={appState} />;
     }
   };
-
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'instant' });
-  }, [activePage]);
 
   return (
     <div className="app-layout">
