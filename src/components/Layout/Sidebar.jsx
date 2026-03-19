@@ -4,20 +4,37 @@ import logo from '../../assets/img/logo.png';
 
 const navItemsPrimary = [
   { id: 'dashboard',  icon: 'bi-grid-1x2',       label: 'Dashboard'  },
-  { id: 'nutrition',  icon: 'bi-journal-text',   label: 'Nutrición'  },
-  { id: 'calistenia', icon: 'bi-person-arms-up', label: 'Calistenia' },
-  { id: 'bienestar',  icon: 'bi-heart-pulse',    label: 'Bienestar'  },
-  { id: 'metas',      icon: 'bi-trophy',         label: 'Metas'      },
+  { id: 'plan',        icon: 'bi-calendar-week',  label: 'Plan'        },
+  { id: 'recetas',     icon: 'bi-book',           label: 'Recetas'     },
+  { id: 'lista',       icon: 'bi-cart3',          label: 'Compras'     },
+  
+  
 ];
 
 const navItemsSecondary = [
-  { id: 'tracking',    icon: 'bi-graph-up-arrow', label: 'Progreso'    },
-  { id: 'recetas',     icon: 'bi-book',           label: 'Recetas'     },
-  { id: 'plan',        icon: 'bi-calendar-week',  label: 'Plan'        },
-  { id: 'lista',       icon: 'bi-cart3',          label: 'Compras'     },
+
+  // { id: 'nutrition',  icon: 'bi-journal-text',   label: 'Nutrición'  },
+  { id: 'calistenia', icon: 'bi-person-arms-up', label: 'Calistenia' },
   { id: 'ayuno',       icon: 'bi-clock-history',  label: 'Ayuno'       },
   { id: 'calculadora', icon: 'bi-calculator',     label: 'Calculadora' },
 ];
+
+// const navItemsPrimary = [
+//   { id: 'dashboard',  icon: 'bi-grid-1x2',       label: 'Dashboard'  },
+//   { id: 'nutrition',  icon: 'bi-journal-text',   label: 'Nutrición'  },
+//   { id: 'calistenia', icon: 'bi-person-arms-up', label: 'Calistenia' },
+//   { id: 'bienestar',  icon: 'bi-heart-pulse',    label: 'Bienestar'  },
+//   { id: 'metas',      icon: 'bi-trophy',         label: 'Metas'      },
+// ];
+
+// const navItemsSecondary = [
+//   { id: 'tracking',    icon: 'bi-graph-up-arrow', label: 'Progreso'    },
+//   { id: 'recetas',     icon: 'bi-book',           label: 'Recetas'     },
+//   { id: 'plan',        icon: 'bi-calendar-week',  label: 'Plan'        },
+//   { id: 'lista',       icon: 'bi-cart3',          label: 'Compras'     },
+//   { id: 'ayuno',       icon: 'bi-clock-history',  label: 'Ayuno'       },
+//   { id: 'calculadora', icon: 'bi-calculator',     label: 'Calculadora' },
+// ];
 
 const slogans = {
   lose:     '💪 Cada día más cerca',
