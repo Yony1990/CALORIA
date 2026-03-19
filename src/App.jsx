@@ -22,11 +22,14 @@ export default function App() {
   const appState = useAppState();
   const { profile, saveProfile } = appState;
 
-  const onboardingDone = !!localStorage.getItem('caloria_onboarding_done') && !!profile.name;
+  const [onboardingDone, setOnboardingDone] = useState(
+    () => !!localStorage.getItem('caloria_onboarding_done') && !!profile.name
+  );
 
   const handleOnboardingComplete = (datosProfile) => {
     saveProfile(datosProfile);
     localStorage.setItem('caloria_onboarding_done', 'true');
+    setOnboardingDone(true); 
   };
 
   if (!onboardingDone) {

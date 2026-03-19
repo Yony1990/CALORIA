@@ -1,11 +1,21 @@
 import { useState } from 'react';
 
 export default function Step4Perfil({ onNext, onPrev, datos, updateDatos }) {
-  const [weightInput,  setWeightInput]  = useState(String(datos.weight));
-  const [heightInput,  setHeightInput]  = useState(String(datos.height));
-  const [ageInput,     setAgeInput]     = useState(String(datos.age));
+  const [weightInput, setWeightInput] = useState(String(datos.weight));
+  const [heightInput, setHeightInput] = useState(String(datos.height));
+  const [ageInput,    setAgeInput]    = useState(String(datos.age));
+  const [touched,     setTouched]     = useState(false);
 
-  const canContinue = datos.name.trim().length > 0;
+  const nombreVacio = datos.name.trim().length === 0;
+  const canContinue = !nombreVacio;
+
+  const handleNext = () => {
+    if (!canContinue) {
+      setTouched(true);
+      return;
+    }
+    onNext();
+  };
 
   return (
     <div className="intro-step step4">
@@ -18,13 +28,21 @@ export default function Step4Perfil({ onNext, onPrev, datos, updateDatos }) {
 
         {/* Nombre */}
         <div className="intro-field">
-          <label>¿Cómo te llamás?</label>
+          <label>
+            ¿Cómo te llamás?
+            {touched && nombreVacio && (
+              <span className="intro-field-error">← Este campo es obligatorio</span>
+            )}
+          </label>
           <input
             type="text"
             placeholder="Tu nombre"
             value={datos.name}
-            onChange={e => updateDatos({ name: e.target.value })}
-            className="intro-input"
+            onChange={e => {
+              updateDatos({ name: e.target.value });
+              if (touched) setTouched(false);
+            }}
+            className={`intro-input ${touched && nombreVacio ? 'input-error' : ''}`}
           />
         </div>
 
@@ -60,7 +78,7 @@ export default function Step4Perfil({ onNext, onPrev, datos, updateDatos }) {
                   if (!isNaN(val) && val >= 10 && val <= 100) updateDatos({ age: val });
                 }}
                 onBlur={() => {
-                  const val = parseInt(ageInput);
+                  const val  = parseInt(ageInput);
                   const safe = isNaN(val) ? 25 : Math.min(100, Math.max(10, val));
                   setAgeInput(String(safe));
                   updateDatos({ age: safe });
@@ -83,7 +101,7 @@ export default function Step4Perfil({ onNext, onPrev, datos, updateDatos }) {
                   if (!isNaN(val) && val >= 20 && val <= 500) updateDatos({ weight: val });
                 }}
                 onBlur={() => {
-                  const val = parseFloat(weightInput);
+                  const val  = parseFloat(weightInput);
                   const safe = isNaN(val) ? 70 : Math.min(500, Math.max(20, val));
                   setWeightInput(String(safe));
                   updateDatos({ weight: safe });
@@ -106,7 +124,7 @@ export default function Step4Perfil({ onNext, onPrev, datos, updateDatos }) {
                   if (!isNaN(val) && val >= 100 && val <= 250) updateDatos({ height: val });
                 }}
                 onBlur={() => {
-                  const val = parseInt(heightInput);
+                  const val  = parseInt(heightInput);
                   const safe = isNaN(val) ? 170 : Math.min(250, Math.max(100, val));
                   setHeightInput(String(safe));
                   updateDatos({ height: safe });
@@ -122,12 +140,7 @@ export default function Step4Perfil({ onNext, onPrev, datos, updateDatos }) {
         <button className="intro-btn-ghost" onClick={onPrev}>
           <i className="bi bi-arrow-left"></i> Atrás
         </button>
-        <button
-          className="intro-btn-primary"
-          onClick={onNext}
-          disabled={!canContinue}
-          style={!canContinue ? { opacity: 0.5, cursor: 'not-allowed' } : {}}
-        >
+        <button className="intro-btn-primary" onClick={handleNext}>
           Siguiente <i className="bi bi-arrow-right"></i>
         </button>
       </div>
